@@ -21,6 +21,7 @@ export const BorderSection = styled.div`
   padding: 0rem 0rem 2.75rem;
   display: flex;
   flex-direction: column;
+  margin-top: 25px;
 `;
 
 export const BottomPadding = styled.div`
@@ -31,6 +32,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 `;
 
 export const TakeOut = styled.div`
@@ -46,6 +48,29 @@ export const TakeOut = styled.div`
 
 export const HorizontalLine = styled.div`
   height: 0.5rem;
-  width: 100vw;
-  background-color: ${(props) => props.theme.colors.grayScale.gy50};
+  width: 100%;
+  background-color: ${(props) => props.theme.colors.grayScale.gy200};
+`;
+
+export const FavoriteButton = styled.button<{ $isFavorited: boolean }>`
+  position: absolute;
+  top: 7rem;
+  right: 1rem;
+  gap: 7px;
+  border: ${({ $isFavorited, theme }) =>
+    $isFavorited ? 'none' : `1px solid ${theme.colors.primary.violet}`};
+  background: ${({ $isFavorited, theme }) =>
+    $isFavorited ? theme.colors.primary.violet : 'rgba(255, 255, 255, 0.9)'};
+  border-radius: 12px;
+  width: 54px;
+  height: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: ${({ $isFavorited, theme }) => ($isFavorited ? '#ffffff' : theme.colors.primary.violet)};
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
 `;

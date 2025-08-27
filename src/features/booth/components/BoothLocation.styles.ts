@@ -23,7 +23,7 @@ export const Map = styled.div`
   width: 100%;
   height: 12.5rem;
   border-radius: 0.75rem;
-  background-color: ${(props) => props.theme.colors.grayScale.gy50};
+  background-color: ${(props) => props.theme.colors.grayScale.gy300};
   position: relative;
 `;
 
@@ -34,7 +34,7 @@ export const Button = styled.button`
   align-items: center;
   gap: 0.375rem;
   background-color: ${(props) => props.theme.colors.grayScale.white};
-  border-radius: 0.375rem;
+  border-radius: 12px;
   border: none;
   position: absolute;
   right: 0.75rem;

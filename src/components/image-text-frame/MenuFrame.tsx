@@ -23,7 +23,7 @@ export default function MenuFrame({ menu, description, price, width }: MenuFrame
   return (
     <S.MenuContainer $width={width}>
       <S.MenuTextWrap>
-        <S.Title>{menu}</S.Title>
+        <S.menuTitle>{menu}</S.menuTitle>
         <S.MenuDescription>{description}</S.MenuDescription>
       </S.MenuTextWrap>
       <S.Price>{price}</S.Price>

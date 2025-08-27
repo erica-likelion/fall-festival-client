@@ -23,7 +23,7 @@ export const Tab = styled.button<{
   $margin?: string;
 }>`
   display: flex;
-  padding: 0.25rem 0.5rem;
+  padding: 0.35rem 0.7rem;
   margin-left: ${(props) => (props.$isFirst ? props.$margin : '0')};
   margin-right: ${(props) => (props.$isLast ? props.$margin : '0')};
   justify-content: center;
@@ -34,10 +34,9 @@ export const Tab = styled.button<{
     border-color 0.3s ease;
   cursor: pointer;
   border: 1px solid;
-  border-color: ${(props) =>
-    props.$isActive ? 'transparent' : props.theme.colors.grayScale.black};
+  border-color: ${(props) => (props.$isActive ? 'transparent' : props.theme.colors.primary.violet)};
   background-color: ${(props) =>
-    props.$isActive ? props.theme.colors.primary.bl400 : 'transparent'};
+    props.$isActive ? props.theme.colors.primary.violet : 'transparent'};
 
   &:active {
     background-color: ${(props) => props.theme.colors.grayScale.offwhite};
@@ -49,9 +48,8 @@ export const TabText = styled.p<{ $isActive: boolean }>`
   color: ${(props) =>
     props.$isActive
       ? `${props.theme.colors.grayScale.white}`
-      : `${props.theme.colors.grayScale.black}`};
+      : `${props.theme.colors.primary.violet}`};
   text-align: center;
-  text-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
   white-space: nowrap;
   transition: color 0.3s ease;
 `;

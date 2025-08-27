@@ -46,5 +46,11 @@ export const GlobalStyle = createGlobalStyle`
 
     * {
         box-sizing: border-box;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    *::-webkit-scrollbar {
+        display: none;
     }
 `;

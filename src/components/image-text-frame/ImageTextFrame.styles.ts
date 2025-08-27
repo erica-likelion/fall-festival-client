@@ -196,9 +196,19 @@ export const MenuDescription = styled.p`
   margin-bottom: auto;
 `;
 
+export const menuTitle = styled.p`
+  ${(props) => props.theme.fonts.header.h4}
+  color: ${(props) => props.theme.colors.primary.violet};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  flex: 0 1 auto;
+`;
+
 export const Price = styled.p`
   ${(props) => props.theme.fonts.body.small500}
-  color: ${(props) => props.theme.colors.grayScale.black};
+  color: ${(props) => props.theme.colors.primary.violet};
   text-align: right;
   margin-left: auto;
   margin-top: auto;

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import * as S from './MenuList.styles';
 import { MenuFrame } from '@/components/image-text-frame';
 import { BOOTH_LIST } from '@/constants/booth/booth';
-const MENU_CATEGORY = ['메인', '사이드', '음료'];
+const MENU_CATEGORY = ['메인 메뉴', '사이드 메뉴', '음료'];
 
 export default function MenuList({ id }: { id: number }) {
   const [activeTab, setActiveTab] = useState<string>('');
@@ -16,9 +16,9 @@ export default function MenuList({ id }: { id: number }) {
       <S.TabsContainer>
         <Tabs tabs={MENU_CATEGORY} activeTab={activeTab} onTabClick={setActiveTab} toggle={true} />
       </S.TabsContainer>
-      {(activeTab === '' || activeTab === '메인') && (
+      {(activeTab === '' || activeTab === '메인 메뉴') && (
         <S.MenuFrame>
-          <S.MenuItem>메인메뉴</S.MenuItem>
+          <S.MenuItem>메인 메뉴</S.MenuItem>
           <S.MenuList>
             {booth.menu.main.map((menu) => (
               <MenuFrame
@@ -32,9 +32,11 @@ export default function MenuList({ id }: { id: number }) {
         </S.MenuFrame>
       )}
 
-      {(activeTab === '' || activeTab === '사이드') && (
+      {activeTab === '' && booth.menu.side.length > 0 && <S.HorizontalLine />}
+
+      {(activeTab === '' || activeTab === '사이드 메뉴') && (
         <S.MenuFrame>
-          <S.MenuItem>사이드메뉴</S.MenuItem>
+          <S.MenuItem>사이드 메뉴</S.MenuItem>
           <S.MenuList>
             {booth.menu.side.map((menu) => (
               <MenuFrame
@@ -47,6 +49,8 @@ export default function MenuList({ id }: { id: number }) {
           </S.MenuList>
         </S.MenuFrame>
       )}
+
+      {activeTab === '' && booth.menu.sub.length > 0 && <S.HorizontalLine />}
 
       {(activeTab === '' || activeTab === '음료') && (
         <S.MenuFrame>

@@ -1,10 +1,11 @@
 import { useKakaoMap } from '@/hooks/useKakaoMap';
 import * as S from './BoothLocation.styles';
-import RightIcon from '@/assets/icons/right-arrow.svg?react';
 import { useEffect, useRef } from 'react';
 import { LOCATION_DATA } from '@/constants/map/LOC_DATA';
 import { MapData, MapDataItem } from '@/constants/map/MapData';
 import { useNavigate } from 'react-router-dom';
+import RightIcon from '@/assets/icons/arrow-right.svg?react';
+
 export default function BoothLocation({
   id,
   boothLocation,
@@ -43,11 +44,11 @@ export default function BoothLocation({
   return (
     <S.Container>
       <S.Title>위치</S.Title>
-      <S.Locate>{boothLocation}</S.Locate>
+      <S.Locate>{boothLocation.replace('.', '-')}</S.Locate>
       <S.Map ref={mapRef}>
         <S.Button onClick={() => navigate(`/map/${id}`, { replace: true })}>
           <S.ButtonText>지도에서 보기</S.ButtonText>
-          <RightIcon width={'1rem'} height={'1rem'} fill="#17171B" />
+          <RightIcon width="0.55rem" height="0.55rem" />
         </S.Button>
       </S.Map>
     </S.Container>
