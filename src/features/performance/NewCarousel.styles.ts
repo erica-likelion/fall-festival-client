@@ -16,18 +16,13 @@ export const CarouselWrapper = styled.div`
     flex-wrap: nowrap;
   }
 
-  /* slick-slide 스타일링 */
-  .slick-slide {
-    padding: 0 0.75rem;
-  }
-
   .slick-list {
     overflow: visible;
+    padding: 0 20px;
   }
 `;
 
 export const CarouselItem = styled.div`
-  flex-shrink: 0;
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;

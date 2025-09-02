@@ -83,10 +83,16 @@ export default function Performance() {
         {performances.length > 0 && (
           <S.ProgressContainer>
             <S.ProgressBar>
-              <S.ProgressFill
-                width={`${(1 / performances.length) * 100}%`}
-                left={`${(currentIndex / performances.length) * 100}%`}
-              />
+              {(() => {
+                const slidesToShow = 1.5;
+                const adjustedLength = performances.length - slidesToShow + 1;
+                return (
+                  <S.ProgressFill
+                    width={`${100 / adjustedLength}%`}
+                    left={`${(currentIndex / (adjustedLength - 1)) * (100 - 100 / adjustedLength)}%`}
+                  />
+                );
+              })()}
             </S.ProgressBar>
           </S.ProgressContainer>
         )}
