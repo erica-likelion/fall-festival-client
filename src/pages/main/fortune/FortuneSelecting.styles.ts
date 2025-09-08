@@ -65,10 +65,6 @@ export const Card = styled.img`
   -webkit-backface-visibility: hidden;
   transform: translateZ(0);
 
-  /* 크롬 이미지 선명도 최적화 */
-  image-rendering: optimize-contrast;
-  -webkit-font-smoothing: subpixel-antialiased;
-
   &:hover {
     transform: translateY(-4px) scale(1.02) translateZ(0);
   }
@@ -104,31 +100,20 @@ export const SelectedCard = styled.img<{ $isFlipped: boolean }>`
     0 8px 16px rgb(0 0 0 / 20%);
   border-radius: 12px;
 
-  /* 크롬 이미지 선명도 최적화 */
-  image-rendering: optimize-contrast;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-transform: translateZ(0);
-  -webkit-font-smoothing: subpixel-antialiased;
-  will-change: transform;
-
   ${({ $isFlipped }) =>
     $isFlipped &&
     `
-    transform: translateZ(0) rotateY(180deg);
+    transform: rotateY(180deg);
   `}
 
   &:hover {
-    transform: ${({ $isFlipped }) =>
-      $isFlipped ? 'translateZ(0) rotateY(180deg) scale(1.02)' : 'translateZ(0) scale(1.02)'};
+    transform: ${({ $isFlipped }) => ($isFlipped ? 'rotateY(180deg) scale(1.02)' : 'scale(1.02)')};
     box-shadow:
       0 25px 50px rgb(0 0 0 / 40%),
       0 12px 24px rgb(0 0 0 / 30%);
   }
 
   &:active {
-    transform: ${({ $isFlipped }) =>
-      $isFlipped ? 'translateZ(0) rotateY(180deg) scale(0.98)' : 'translateZ(0) scale(0.98)'};
+    transform: ${({ $isFlipped }) => ($isFlipped ? 'rotateY(180deg) scale(0.98)' : 'scale(0.98)')};
   }
 `;

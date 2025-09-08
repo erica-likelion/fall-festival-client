@@ -52,8 +52,7 @@ export const CardInner = styled.button<{ $isFlipped: boolean; $isVisible: boolea
   width: 295px;
   height: 440px;
   transform-style: preserve-3d;
-  transform: ${({ $isVisible }) =>
-    $isVisible ? 'translateZ(0) scale(1)' : 'translateZ(0) scale(0)'};
+  transform: ${({ $isVisible }) => ($isVisible ? 'scale(1)' : 'scale(0)')};
   opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
   transition:
     transform 1.8s cubic-bezier(0.2, 0.7, 0.2, 1),
@@ -64,29 +63,23 @@ export const CardInner = styled.button<{ $isFlipped: boolean; $isVisible: boolea
     0 0 30px 12px ${({ theme }) => theme.colors.secondary.DS_Card}30;
   border-radius: 21.13px;
 
-  /* 크롬 렌더링 최적화 */
-  will-change: transform, opacity;
-  -webkit-transform: translateZ(0);
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-
   ${({ $isFlipped }) =>
     $isFlipped &&
     `
-    transform: translateZ(0) rotateY(180deg) scale(1.02); 
+    transform: rotateY(180deg) scale(1.02); 
   `}
 
   &:hover {
     transform: ${(props) => {
-      const baseScale = props.$isVisible ? 'translateZ(0) scale(1.02)' : 'translateZ(0) scale(0)';
-      return props.$isFlipped ? 'translateZ(0) rotateY(180deg) scale(1.02)' : baseScale;
+      const baseScale = props.$isVisible ? 'scale(1.02)' : 'scale(0)';
+      return props.$isFlipped ? 'rotateY(180deg) scale(1.02)' : baseScale;
     }};
   }
 
   &:active {
     transform: ${(props) => {
-      const baseScale = props.$isVisible ? 'translateZ(0) scale(0.98)' : 'translateZ(0) scale(0)';
-      return props.$isFlipped ? 'translateZ(0) rotateY(180deg) scale(0.98)' : baseScale;
+      const baseScale = props.$isVisible ? 'scale(0.98)' : 'scale(0)';
+      return props.$isFlipped ? 'rotateY(180deg) scale(0.98)' : baseScale;
     }};
   }
 
@@ -118,23 +111,16 @@ const CardFace = styled.div`
     display: block;
     object-fit: cover;
     background: transparent;
-
-    /* 크롬 이미지 선명도 최적화 */
-    image-rendering: optimize-contrast;
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-transform: translateZ(0);
+    will-change: transform;
     transform: translateZ(0);
-    -webkit-font-smoothing: subpixel-antialiased;
   }
 `;
 
 export const CardFaceFront = styled(CardFace)`
-  transform: translateZ(0) rotateY(0deg);
+  transform: rotateY(0deg);
 `;
 
 // CardContainer가 회전하면 정방향으로 보이도록
 export const CardFaceBack = styled(CardFace)`
-  transform: translateZ(0) rotateY(180deg);
+  transform: rotateY(180deg);
 `;
