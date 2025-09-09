@@ -86,7 +86,7 @@ export default function Menu() {
             image={Lion}
             title="제3대 총동아리연합회 [ HERE ]"
             description="인스타그램 바로가기"
-            onClick={() => window.open(externalLinks.instagramLikelion, '_blank')}
+            onClick={() => window.open(externalLinks.instagramClubAssoc, '_blank')}
           />
           <ImageTextIconFrame
             image={Lion}

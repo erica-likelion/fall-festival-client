@@ -35,7 +35,7 @@ export const Container = styled.div`
   width: 100%;
   height: auto;
   position: relative;
-  margin-bottom: 5.37rem;
+  margin-bottom: 8rem;
 `;
 
 export const Main = styled.main`
