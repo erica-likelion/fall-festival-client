@@ -723,9 +723,9 @@ const createCustomMarker = (
 
     // 카테고리별 색상 설정
     const colors = {
-      푸드트럭: { stroke: '#F893AD', fill: 'rgba(248, 147, 173, 0.20)' },
-      플리마켓: { stroke: '#F893AD', fill: 'rgba(248, 147, 173, 0.20)' },
-      프로모션: { stroke: '#F893AD', fill: 'rgba(248, 147, 173, 0.20)' },
+      푸드트럭: { stroke: '#7E419A', fill: '#7E419A' },
+      플리마켓: { stroke: '#7E419A', fill: '#7E419A' },
+      프로모션: { stroke: '#7E419A', fill: '#7E419A' },
     };
 
     const polygon = new kakao.maps.Polygon({
