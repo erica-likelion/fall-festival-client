@@ -421,31 +421,26 @@ export function useKakaoMap(
     // MapWrapper 크기 변경 인식을 위한 relayout 호출
     kakaoMapRef.current.relayout();
 
-    // 카테고리가 선택되지 않은 경우 (null) 기존 마커 모두 제거
-    if (!selectedCategory) {
-      // 이전 커스텀 오버레이와 다각형 제거
-      customOverlaysRef.current.forEach((overlay) => {
-        overlay.setMap(null);
-      });
-      customPolygonsRef.current.forEach((polygon) => {
-        polygon.setMap(null);
-      });
-      customOverlaysRef.current = [];
-      customPolygonsRef.current = [];
-
-      // 선택된 항목 마커가 있다면 제거
-      if (selectedItemMarkerRef.current) {
-        selectedItemMarkerRef.current.setMap(null);
-        selectedItemMarkerRef.current = null;
-      }
-
-      return;
-    }
+    // 카테고리가 변경될 때마다 기존 마커와 폴리곤 모두 제거
+    // 이전 커스텀 오버레이와 다각형 제거
+    customOverlaysRef.current.forEach((overlay) => {
+      overlay.setMap(null);
+    });
+    customPolygonsRef.current.forEach((polygon) => {
+      polygon.setMap(null);
+    });
+    customOverlaysRef.current = [];
+    customPolygonsRef.current = [];
 
     // 선택된 항목 마커가 있다면 제거
     if (selectedItemMarkerRef.current) {
       selectedItemMarkerRef.current.setMap(null);
       selectedItemMarkerRef.current = null;
+    }
+
+    // 카테고리가 선택되지 않은 경우 (null) 여기서 종료
+    if (!selectedCategory) {
+      return;
     }
 
     console.log(`[KakaoMap] '${selectedCategory}' 카테고리 마커 표시 시작`);
@@ -601,15 +596,28 @@ export function useKakaoMap(
       }, 100);
     };
 
+    // 지도 클릭 이벤트 핸들러 (위도/경도 콘솔 출력용)
+    const handleMapClick = (mouseEvent: kakao.maps.event.MouseEvent) => {
+      const latlng = mouseEvent.latLng;
+      console.log('지도 클릭 위치:', {
+        위도: latlng.getLat(),
+        경도: latlng.getLng(),
+        위도_문자열: latlng.getLat().toString(),
+        경도_문자열: latlng.getLng().toString(),
+      });
+    };
+
     // 이벤트 리스너 등록 및 리스너 ID 저장
     const dragStartListener = kakao.maps.event.addListener(map, 'dragstart', handleDragStart);
     const dragEndListener = kakao.maps.event.addListener(map, 'dragend', handleDragEnd);
+    const clickListener = kakao.maps.event.addListener(map, 'click', handleMapClick);
 
     // 클린업 함수
     return () => {
       // 각 리스너 제거
       kakao.maps.event.removeListener(dragStartListener);
       kakao.maps.event.removeListener(dragEndListener);
+      kakao.maps.event.removeListener(clickListener);
     };
   }, []);
 
@@ -682,12 +690,12 @@ const createCustomMarker = (
     yAnchor: 0.5,
   });
 
-  // 푸드트럭이나 플리마켓인 경우 아래에 직사각형 영역 추가
-  if (category === '푸드트럭' || category === '플리마켓') {
-    const angle = category === '푸드트럭' ? 59 : 61; // 각도 설정
+  // 푸드트럭, 플리마켓, 프로모션인 경우 아래에 직사각형 영역 추가
+  if (category === '푸드트럭' || category === '플리마켓' || category === '프로모션') {
+    const angle = category === '푸드트럭' ? 59 : category === '플리마켓' ? 59 : 59; // 각도 설정
     const angle_rad = angle * (Math.PI / 180); // 라디안으로 변환
-    const width = category === '푸드트럭' ? 0.00014 : 0.0003; // 직사각형의 너비
-    const height = category === '푸드트럭' ? 0.0006 : 0.0004; // 직사각형의 높이
+    const width = category === '푸드트럭' ? 0.00014 : category === '플리마켓' ? 0.00014 : 0.00014; // 직사각형의 너비
+    const height = category === '푸드트럭' ? 0.0015 : category === '플리마켓' ? 0.0011 : 0.0011; // 직사각형의 높이
 
     // 중심점으로부터의 회전된 꼭지점 계산
     const dx = width / 2;
@@ -713,13 +721,20 @@ const createCustomMarker = (
       ),
     ];
 
+    // 카테고리별 색상 설정
+    const colors = {
+      푸드트럭: { stroke: '#F893AD', fill: 'rgba(248, 147, 173, 0.20)' },
+      플리마켓: { stroke: '#F893AD', fill: 'rgba(248, 147, 173, 0.20)' },
+      프로모션: { stroke: '#F893AD', fill: 'rgba(248, 147, 173, 0.20)' },
+    };
+
     const polygon = new kakao.maps.Polygon({
       path: path,
       strokeWeight: 1,
-      strokeColor: '#4F75F9',
+      strokeColor: colors[category as keyof typeof colors].stroke,
       strokeOpacity: 1,
       strokeStyle: 'solid',
-      fillColor: '#4F75F9',
+      fillColor: colors[category as keyof typeof colors].fill,
       fillOpacity: 0.3,
     });
 

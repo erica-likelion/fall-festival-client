@@ -64,7 +64,9 @@ export const NorthStar = styled.div`
 
 export const VerticalLine = styled.div`
   width: 0.063rem;
-  height: 4.5rem;
+  height: calc(100dvh - 45rem);
+  min-height: 1.2rem;
+  max-height: 10rem;
   background: ${(props) => props.theme.colors.primary.violet};
 `;
 
