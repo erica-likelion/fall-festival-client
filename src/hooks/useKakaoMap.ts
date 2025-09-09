@@ -597,6 +597,8 @@ export function useKakaoMap(
     };
 
     // 지도 클릭 이벤트 핸들러 (위도/경도 콘솔 출력용)
+    // -> 빌드를 위해 주석 처리 하였습니다
+    /*
     const handleMapClick = (mouseEvent: kakao.maps.event.MouseEvent) => {
       const latlng = mouseEvent.latLng;
       console.log('지도 클릭 위치:', {
@@ -606,18 +608,19 @@ export function useKakaoMap(
         경도_문자열: latlng.getLng().toString(),
       });
     };
+    */
 
     // 이벤트 리스너 등록 및 리스너 ID 저장
     const dragStartListener = kakao.maps.event.addListener(map, 'dragstart', handleDragStart);
     const dragEndListener = kakao.maps.event.addListener(map, 'dragend', handleDragEnd);
-    const clickListener = kakao.maps.event.addListener(map, 'click', handleMapClick);
+    // const clickListener = kakao.maps.event.addListener(map, 'click', handleMapClick);
 
     // 클린업 함수
     return () => {
       // 각 리스너 제거
       kakao.maps.event.removeListener(dragStartListener);
       kakao.maps.event.removeListener(dragEndListener);
-      kakao.maps.event.removeListener(clickListener);
+      // kakao.maps.event.removeListener(clickListener);
     };
   }, []);
 
