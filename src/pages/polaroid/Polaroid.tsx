@@ -248,9 +248,11 @@ export default function Polaroid() {
   // step이 'intro'일 때, 오늘 날짜에 스킵했는지 확인
   useEffect(() => {
     if (step === 'intro') {
-      const skipDate = localStorage.getItem('skipPolaroidDate');
-      if (skipDate === getTodayDateString()) {
-        handleShootClick(); // 오늘 이미 스킵했다면 바로 촬영 단계로
+      if (localStorage.getItem('skipPolaroidDate') === getTodayDateString()) {
+        setTimeout(() => {
+          goToSlide(2); // 마지막 슬라이드로 이동
+          handleShootClick(); // 오늘 이미 스킵했다면 바로 촬영 단계로
+        }, 200); // 약간의 딜레이를 줘서 UI가 먼저 렌더링되도록 함
       }
     }
   }, [step, handleShootClick]); // step이 변경될 때마다 체크
@@ -299,9 +301,13 @@ export default function Polaroid() {
             <S.PrimaryButton onClick={isLastSlide ? handleShootClick : goNextSlide}>
               {isLastSlide ? '촬영하기' : '다음으로'}
             </S.PrimaryButton>
-            <S.SkipLink onClick={handleSkip}>
-              {isLastSlide ? '오늘하루 그만보기' : '안내화면 스킵하기'}
-            </S.SkipLink>
+            {localStorage.getItem('skipPolaroidDate') !== getTodayDateString() ? (
+              <S.SkipLink onClick={handleSkip}>
+                {isLastSlide ? '오늘하루 그만보기' : '안내화면 스킵하기'}
+              </S.SkipLink>
+            ) : (
+              <S.SkipLink />
+            )}
 
             <input
               ref={fileInputRef}
