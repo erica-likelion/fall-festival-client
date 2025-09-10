@@ -12,21 +12,6 @@ export const Container = styled.footer`
 
 export const Sub = styled.p`
   ${(props) => props.theme.fonts.body.xsmall500}
-  color: ${theme.colors.grayScale.gy900};
+  color: ${theme.colors.grayScale.gy500};
   text-align: center;
-`;
-
-export const Btn = styled.div`
-  text-decoration: underline;
-  display: flex;
-  padding: 0.25rem 0.75rem;
-  justify-content: center;
-  align-items: center;
-  gap: 0.375rem;
-`;
-
-export const Out = styled.p`
-  ${(props) => props.theme.fonts.body.xsmall500}
-  color: ${theme.colors.grayScale.gy900};
-  text-decoration: underline;
 `;
