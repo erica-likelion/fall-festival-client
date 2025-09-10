@@ -3,7 +3,8 @@ import * as S from './Menu.styles';
 import { ImageTextIconFrame } from '@/components/image-text-icon-frame';
 import { ImageBannerFrame } from '@/components/image-banner-frame';
 import { externalLinks } from '@/constants/main/ExternalLink';
-import Student from '@/assets/images/menu/ericanote.jpeg';
+import Student from '@/assets/images/menu/ericanote.webp';
+import Club from '@/assets/images/menu/clubassoc.webp';
 import Form from '@/assets/icons/form_logo.svg';
 // import Fortune from '@/assets/icons/pixel_moon.svg';
 import FortuneBannerImg from '@/assets/images/fortune-banner.webp';
@@ -83,7 +84,7 @@ export default function Menu() {
             onClick={() => window.open(externalLinks.instagramStudent, '_blank')}
           />
           <ImageTextIconFrame
-            image={Lion}
+            image={Club}
             title="제3대 총동아리연합회 [ HERE ]"
             description="인스타그램 바로가기"
             onClick={() => window.open(externalLinks.instagramClubAssoc, '_blank')}
