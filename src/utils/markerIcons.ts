@@ -28,7 +28,7 @@ export const markerIcons: MarkerIconMap = {
   프로모션: MarkerPromotion,
   콘텐츠: MarkerHospital,
   화장실: MarkerToilet,
-  의무실: MarkerHospital,
+  '온열질환 대비소': MarkerHospital,
   공연장: MarkerPerformance,
   셔틀콕: MarkerBusStop,
   푸드트럭: MarkerFoodTruck,

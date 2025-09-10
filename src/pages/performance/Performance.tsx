@@ -10,6 +10,8 @@ import useModal from '@/hooks/useModal';
 import { NavBar } from '@/components/nav-bar/NavBar';
 import { usePerformanceStore, DayType } from '@/stores/usePerformanceStore';
 import { PerformanceItem } from '@/features/performance/Carousel.types';
+import { getCurrentFestivalDayKorea } from '@/utils/newDateUtils';
+import { FESTIVAL_START_DATE, FESTIVAL_TOTAL_DAYS } from '@/constants/festival/dates';
 
 /**
  * Performance 페이지
@@ -21,11 +23,15 @@ export default function Performance() {
   const location = useLocation();
   const setIsNav = useLayoutStore((s) => s.setIsNav);
 
-  // 뒤로가기 시 전달받은 selectedDay를 초기값으로 사용
+  // 뒤로가기 시 전달받은 selectedDay를 초기값으로 사용 (한국 시간 기준 현재 일차)
   const getInitialSelectedDay = (): DayType => {
     const state = location.state as { selectedDay?: DayType } | null;
     const sessionSelectedDay = sessionStorage.getItem('performanceSelectedDay') as DayType;
-    return state?.selectedDay || sessionSelectedDay || '2일차';
+    const currentDay = getCurrentFestivalDayKorea(
+      FESTIVAL_START_DATE,
+      FESTIVAL_TOTAL_DAYS,
+    ) as DayType;
+    return state?.selectedDay || sessionSelectedDay || currentDay;
   };
 
   const [selectedDay, setSelectedDay] = useState<DayType>(getInitialSelectedDay());

@@ -404,7 +404,7 @@ export const LOCATION_DATA: Record<CATEGORIES, LocationData[]> = {
       closeDay: [],
     },
   ],
-  의무실: [
+  '온열질환 대비소': [
     // API에서 받아올 데이터로 대체될 예정
   ],
 };

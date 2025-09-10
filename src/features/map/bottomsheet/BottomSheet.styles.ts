@@ -72,7 +72,7 @@ export const ContentUnitWrap = styled.div<{ $isLastItem?: boolean }>`
   justify-content: center;
   width: 100%;
   padding: 0.75rem 0;
-  margin-bottom: ${(props) => (props.$isLastItem ? '33rem' : '0')};
+  margin-bottom: ${(props) => (props.$isLastItem ? '39rem' : '0')};
 `;
 
 export const NoDataMessage = styled.div`

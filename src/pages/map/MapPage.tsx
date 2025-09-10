@@ -7,7 +7,7 @@ import SearchBar from '@/components/search-bar/SearchBar';
 import DaySelectorModal from '@/components/day-selector-modal/DaySelectorModal';
 import { DAYS, CATEGORIES } from '@/constants/map';
 import { FESTIVAL_START_DATE, FESTIVAL_TOTAL_DAYS } from '@/constants/festival/dates';
-import { getCurrentFestivalDay } from '@/utils/dateUtils';
+import { getCurrentFestivalDayKorea } from '@/utils/newDateUtils';
 import * as S from './MapPage.styles';
 import { useLayoutStore } from '@/stores/useLayoutStore';
 import ReCenterButtonIcon from '@/assets/icons/re-center.svg?react';
@@ -25,8 +25,8 @@ export default function Map() {
   const location = useLocation();
   const mapRef = useRef<HTMLDivElement>(null);
 
-  // 현재 날짜에 기반한 페스티벌 일차 계산
-  const currentDay = getCurrentFestivalDay(FESTIVAL_START_DATE, FESTIVAL_TOTAL_DAYS) as DAYS;
+  // 현재 날짜에 기반한 페스티벌 일차 계산 (한국 시간 기준)
+  const currentDay = getCurrentFestivalDayKorea(FESTIVAL_START_DATE, FESTIVAL_TOTAL_DAYS) as DAYS;
 
   // 날짜 및 카테고리 관련 상태
   const [selectedDay, setSelectedDay] = useState<DAYS>(currentDay);
@@ -60,13 +60,13 @@ export default function Map() {
       푸드트럭: '푸드트럭',
       콘텐츠: '콘텐츠',
       화장실: '화장실',
-      의무실: '의무실', // 의무실은 의무실로 매핑
+      AED: 'AED',
+      '온열질환 대비소': '온열질환 대비소',
       셔틀콕: '셔틀콕',
       공연장: '공연장',
       흡연실: '흡연구역',
       '주류 구매': '주류 구매 위치',
       플리마켓: '플리마켓',
-      AED: 'AED',
     }),
     [],
   );
@@ -74,17 +74,17 @@ export default function Map() {
   // API 카테고리를 내부 카테고리로 매핑
   const apiCategoryMapping: Record<string, string> = useMemo(
     () => ({
-      '주류 구매': '주류 구매 위치',
-      플리마켓: '플리마켓',
       이벤트: '프로모션',
       콘텐츠: '콘텐츠',
       화장실: '화장실',
-      공연장: '공연장',
+      AED: 'AED',
+      의무실: '온열질환 대비소',
       셔틀콕: '셔틀콕',
+      공연장: '공연장',
       푸드트럭: '푸드트럭',
       흡연실: '흡연구역',
-      의무실: '의무실', // 의무실은 의무실로 매핑
-      AED: 'AED', // AED는 AED로 매핑
+      '주류 구매': '주류 구매 위치',
+      플리마켓: '플리마켓',
     }),
     [],
   );
@@ -126,7 +126,7 @@ export default function Map() {
         셔틀콕: [],
         푸드트럭: [],
         흡연구역: [],
-        의무실: [],
+        '온열질환 대비소': [],
         AED: [],
       };
     }
@@ -169,7 +169,9 @@ export default function Map() {
       셔틀콕: apiMapData.filter((item: MapDataItem) => item.subtitle === '셔틀콕'),
       푸드트럭: apiMapData.filter((item: MapDataItem) => item.subtitle === '푸드트럭'),
       흡연구역: apiMapData.filter((item: MapDataItem) => item.subtitle === '흡연구역'),
-      의무실: apiMapData.filter((item: MapDataItem) => item.subtitle === '의무실'),
+      '온열질환 대비소': apiMapData.filter(
+        (item: MapDataItem) => item.subtitle === '온열질환 대비소',
+      ),
       AED: apiMapData.filter((item: MapDataItem) => item.subtitle === 'AED'),
     };
   }, [convertApiDataToMapData, isApiLoading, booths, markers]);
@@ -187,16 +189,14 @@ export default function Map() {
     },
     selectedMapCategory ? categoryMapping[selectedMapCategory] : selectedCategory,
     selectedDay,
-    singleItemMode, // 🔥 단일 아이템 모드 전달
-    singleItem, // 🔥 단일 아이템 데이터 전달
-    integratedMapData, // 🔥 통합된 맵 데이터 전달
+    singleItemMode,
+    singleItem,
+    integratedMapData,
   );
 
   // itemId가 있을 경우 해당 아이템 자동 선택
   useEffect(() => {
-    // ✅ 닫기(X)로 들어온 렌더는 itemId 핸들링을 건너뜁니다.
     if (location.state?.fromCloseClick) {
-      console.log('[MapPage] fromCloseClick 감지 - itemId 처리 건너뜀');
       // fromCloseClick 상태일 때는 모든 선택 상태를 초기화
       setSelectedMapCategory('');
       setSelectedCategory(null);
@@ -210,7 +210,6 @@ export default function Map() {
 
     // 탭을 통해 카테고리를 직접 선택한 상태에서는 itemId 처리를 하지 않음
     if (itemId && kakaoMap && !selectedMapCategory && !isApiLoading) {
-      console.log('[MapPage] itemId 처리 시작:', itemId);
       // 통합된 데이터에서 아이템 찾기
       let foundItem: MapDataItem | undefined;
       let foundCategory: CATEGORIES | null = null;
@@ -226,8 +225,6 @@ export default function Map() {
       });
 
       if (foundItem && foundCategory) {
-        console.log('[MapPage] 아이템 발견:', foundItem.title, '카테고리:', foundCategory);
-
         if (selectedCategory !== foundCategory) {
           setSelectedCategory(foundCategory);
         }
@@ -255,7 +252,6 @@ export default function Map() {
         }, 500);
       }
     } else if (!itemId && selectedItemId) {
-      console.log('[MapPage] itemId 제거 - 상태 초기화');
       // itemId가 없어졌는데 selectedItemId가 있으면 초기화
       setSelectedItemId(null);
       setSingleItemMode(false);
@@ -289,13 +285,11 @@ export default function Map() {
   useEffect(() => {
     // ✅ fromCloseClick 상태가 있으면 처리하지 않음
     if (location.state?.fromCloseClick) {
-      console.log('[MapPage] fromCloseClick 감지 - 카테고리 상태 처리 건너뜀');
       return;
     }
 
     if (location.state?.selectedCategory && location.state?.showBottomSheet) {
       const categoryName = location.state.selectedCategory;
-      console.log('[MapPage] SearchPage에서 카테고리 전달받음:', categoryName);
 
       setSelectedMapCategory(categoryName);
       setIsFromSearchPage(true);
@@ -316,15 +310,12 @@ export default function Map() {
   useEffect(() => {
     // ✅ fromCloseClick 상태가 있으면 처리하지 않음
     if (location.state?.fromCloseClick) {
-      console.log('[MapPage] fromCloseClick 감지 - 카테고리 동기화 건너뜀');
       return;
     }
 
     if (selectedMapCategory) {
-      console.log('[MapPage] selectedMapCategory 변경됨:', selectedMapCategory);
       const mappedCategory = categoryMapping[selectedMapCategory];
       if (mappedCategory && mappedCategory !== selectedCategory) {
-        console.log('[MapPage] selectedCategory 동기화:', mappedCategory);
         setSelectedCategory(mappedCategory);
       }
     }
@@ -332,9 +323,13 @@ export default function Map() {
 
   // 바텀시트가 열리면 하단 네비게이션 숨김 및 지도 리사이즈
   useEffect(() => {
-    if (isBottomSheetOpen || selectedMapCategory) {
+    const shouldHideNav = isBottomSheetOpen || isDayModalOpen;
+
+    if (shouldHideNav) {
+      // 바텀시트가 열릴 때 네비게이션 숨김
       useLayoutStore.getState().setIsNav(false);
     } else {
+      // 바텀시트가 닫힐 때 네비게이션 다시 표시
       useLayoutStore.getState().setIsNav(true);
     }
 
@@ -347,7 +342,7 @@ export default function Map() {
 
     // cleanup 함수로 timeout 제거
     return () => clearTimeout(timeoutId);
-  }, [isBottomSheetOpen, selectedMapCategory, kakaoMap]);
+  }, [isBottomSheetOpen, isDayModalOpen, kakaoMap]);
 
   // 페이지를 벗어날 때 네비게이션 바를 원상복구
   useEffect(() => {
@@ -464,8 +459,6 @@ export default function Map() {
           isClose={true} // 항상 X 버튼 표시
           backPath={isFromSearchPage && selectedMapCategory ? '/map/search' : undefined}
           onCloseClick={() => {
-            console.log('[MapPage] X버튼 클릭 - 상태 초기화 시작');
-
             if (isFromSearchPage && selectedMapCategory) {
               // 검색 페이지에서 온 경우: 검색 상태 초기화 후 /map으로 이동
               setSelectedMapCategory(() => '');
@@ -476,8 +469,6 @@ export default function Map() {
               setSingleItem(() => null);
               setSingleItemSearchKeyword(() => '');
               setSelectedItemId(() => null);
-
-              console.log('[MapPage] X버튼 클릭 - 네비게이션 실행');
 
               navigate('/map', {
                 replace: true,
@@ -508,13 +499,13 @@ export default function Map() {
               '푸드트럭',
               '콘텐츠',
               '화장실',
-              '의무실',
+              'AED',
+              '온열질환 대비소',
               '셔틀콕',
               '공연장',
               '흡연실',
               '주류 구매',
               '플리마켓',
-              'AED',
             ]}
             activeTab={selectedMapCategory}
             onTabClick={handleMapCategoryChange}
