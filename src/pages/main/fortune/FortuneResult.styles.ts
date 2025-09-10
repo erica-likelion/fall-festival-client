@@ -41,13 +41,16 @@ export const CardContainer = styled.div`
   perspective: 1000px;
 `;
 
-// 회전하는 박스
-export const CardInner = styled.button<{ $isFlipped: boolean; $isVisible: boolean }>`
+export const CardInner = styled.button<{
+  $isFlipped: boolean;
+  $isVisible: boolean;
+  $imageLoaded?: boolean;
+}>`
   -webkit-tap-highlight-color: transparent;
   appearance: none;
   border: 0;
   background: transparent;
-  cursor: pointer;
+  cursor: ${({ $imageLoaded }) => ($imageLoaded ? 'pointer' : 'default')};
   position: relative;
   width: 295px;
   height: 440px;
@@ -94,7 +97,6 @@ export const CardInner = styled.button<{ $isFlipped: boolean; $isVisible: boolea
   }
 `;
 
-// 앞/뒤 공통: 카드 면(겹쳐서 배치)
 const CardFace = styled.div`
   position: absolute;
   inset: 0;
@@ -120,7 +122,6 @@ export const CardFaceFront = styled(CardFace)`
   transform: rotateY(0deg);
 `;
 
-// CardContainer가 회전하면 정방향으로 보이도록
 export const CardFaceBack = styled(CardFace)`
   transform: rotateY(180deg);
 `;
