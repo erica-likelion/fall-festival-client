@@ -273,7 +273,7 @@ export default function Polaroid() {
       {/* 상단 헤더 */}
       <NavBar
         isBack
-        isClose
+        isClose={step !== 'intro'}
         title={headerTitle}
         onBackClick={handleBack}
         onCloseClick={handleExit}
