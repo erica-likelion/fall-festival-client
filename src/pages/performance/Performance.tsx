@@ -137,7 +137,18 @@ export default function Performance() {
           {loading ? (
             <div>공연 정보를 불러오는 중...</div>
           ) : error ? (
-            <div>{error}</div>
+            // 에러 페이지로 네비게이션
+            (() => {
+              navigate('/error', {
+                state: {
+                  mainText: '앗! 공연 정보를 불러올 수 없어요.',
+                  subText: '잠시 후에 다시 시도해주세요!',
+                  showBackButton: true,
+                  showHomeButton: true,
+                },
+              });
+              return null;
+            })()
           ) : (
             <NewCarousel
               data={performances}

@@ -44,7 +44,13 @@ export default function Map() {
   const [singleItemSearchKeyword, setSingleItemSearchKeyword] = useState<string>('');
 
   // Marker store 사용
-  const { fetchMarkers, markers, loading: isApiLoading, isInitialized } = useMarkerStore();
+  const {
+    fetchMarkers,
+    markers,
+    loading: isApiLoading,
+    error: markerError,
+    isInitialized,
+  } = useMarkerStore();
 
   // Booth API 사용
   const { booths } = useBooths();
@@ -367,6 +373,20 @@ export default function Map() {
       fetchMarkers();
     }
   }, [fetchMarkers, isInitialized]);
+
+  // 에러 발생 시 에러 페이지로 이동
+  useEffect(() => {
+    if (markerError) {
+      navigate('/error', {
+        state: {
+          mainText: '앗! 지도 정보를 불러올 수 없어요.',
+          subText: '잠시 후에 다시 시도해주세요!',
+          showBackButton: true,
+          showHomeButton: true,
+        },
+      });
+    }
+  }, [markerError, navigate]);
 
   const handleSearchClick = () => {
     navigate('/map/search');
