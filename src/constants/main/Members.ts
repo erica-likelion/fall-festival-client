@@ -67,7 +67,7 @@ export const allMembers = [
   {
     part: '백엔드',
     image: be_3 as string,
-    label: 'PE',
+    label: 'PM',
     name: '임진수',
     description: '버스카드 안 찍고 버스타기',
   },
