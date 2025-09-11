@@ -25,6 +25,16 @@ import Right from '@/assets/icons/right-arrow.svg?react';
 export default function Menu() {
   const navigate = useNavigate();
 
+  const openExternalLink = (url: string) => {
+    const link = document.createElement('a');
+    link.href = url;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <S.SectionContainer>
       <S.Section>
@@ -52,7 +62,7 @@ export default function Menu() {
           <ImageTextIconFrame
             title="축제 문의 남기기"
             description="축기단 링크트리로 이동"
-            onClick={() => window.open(externalLinks.linkTree, '_blank')}
+            onClick={() => openExternalLink(externalLinks.linkTree)}
           />
           <ImageTextIconFrame
             title="축제 FAQ"
@@ -63,7 +73,7 @@ export default function Menu() {
             image={Form}
             title="축제 웹앱 사용후기"
             description="구글폼 링크로 이동"
-            onClick={() => window.open(externalLinks.googleForm, '_blank')}
+            onClick={() => openExternalLink(externalLinks.googleForm)}
           />
           <ImageTextIconFrame
             image={Make}
@@ -81,19 +91,19 @@ export default function Menu() {
             image={Student}
             title="제43대 총학생회 [ NOTE ]"
             description="인스타그램 바로가기"
-            onClick={() => window.open(externalLinks.instagramStudent, '_blank')}
+            onClick={() => openExternalLink(externalLinks.instagramStudent)}
           />
           <ImageTextIconFrame
             image={Club}
             title="제3대 총동아리연합회 [ HERE ]"
             description="인스타그램 바로가기"
-            onClick={() => window.open(externalLinks.instagramClubAssoc, '_blank')}
+            onClick={() => openExternalLink(externalLinks.instagramClubAssoc)}
           />
           <ImageTextIconFrame
             image={Lion}
             title="IT 창업 동아리 [ 멋쟁이사자처럼 ]"
             description="인스타그램 바로가기"
-            onClick={() => window.open(externalLinks.instagramLikelion, '_blank')}
+            onClick={() => openExternalLink(externalLinks.instagramLikelion)}
           />
         </S.Frame>
       </S.Section>
