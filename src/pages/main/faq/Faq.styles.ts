@@ -15,7 +15,7 @@ export const FaqList = styled.div`
   display: flex;
   flex-direction: column;
   width: 21rem;
-  gap: 0.75rem;
+  gap: 1rem;
 `;
 
 export const FaqItem = styled.div`
@@ -24,12 +24,14 @@ export const FaqItem = styled.div`
   border: 1px solid ${(props) => props.theme.colors.grayScale.gy100};
   overflow: hidden;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0 4px 12px 0 rgb(0 0 0 / 25%);
+  box-shadow: 0 0 0.5rem 0 rgb(0 0 0 / 15%);
+  white-space: pre-line;
+  word-break: keep-all;
 `;
 
 export const FaqQuestion = styled.button`
   width: 100%;
-  padding: 1rem;
+  padding: 0 0.5rem 0 1.3rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -42,8 +44,8 @@ export const FaqQuestion = styled.button`
 export const QuestionText = styled.p`
   ${(props) => props.theme.fonts.body.medium500}
   color: ${(props) => props.theme.colors.grayScale.black};
-  margin: 0;
   line-height: 1.4;
+  margin: 1rem 0;
 `;
 
 export const ExpandIcon = styled.div<{ $isExpanded: boolean }>`
@@ -54,13 +56,16 @@ export const ExpandIcon = styled.div<{ $isExpanded: boolean }>`
   height: 3rem;
   transition: transform 0.3s ease-in-out;
   transform: ${({ $isExpanded }) => ($isExpanded ? 'rotate(180deg)' : 'rotate(0deg)')};
-  color: ${(props) => props.theme.colors.grayScale.black};
+
+  path {
+    stroke: ${(props) => props.theme.colors.grayScale.gy700};
+  }
 `;
 
 export const FaqAnswer = styled.div<{ $isExpanded: boolean }>`
   max-height: ${({ $isExpanded }) => ($isExpanded ? '500px' : '0')};
   overflow: hidden;
-  transition: max-height 0.3s ease-in-out;
+  transition: max-height 0.5s ease-in-out;
 `;
 
 export const AnswerContent = styled.div`
@@ -76,6 +81,6 @@ export const AnswerText = styled.p`
   ${(props) => props.theme.fonts.body.small400}
   color: ${(props) => props.theme.colors.grayScale.gy600};
   margin: 0;
-  line-height: 1.5;
-  white-space: pre-line;
+  line-height: 1.2;
+  margin-bottom: 0.3rem;
 `;
