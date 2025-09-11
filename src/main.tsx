@@ -8,6 +8,10 @@ import Layout from '@/layout';
 import { ensureSessionCookie } from '@/utils/session';
 import { PageLoadingSpinner } from '@/components/loading';
 
+// jQuery 전역 설정 (react-slick)
+import $ from 'jquery';
+window.$ = window.jQuery = $;
+
 // 즉시 로드가 필요한 핵심 컴포넌트만 직접 import
 import Main from '@/pages/main/Main';
 import ErrorPage from '@/pages/error/ErrorPage';

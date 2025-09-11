@@ -15,8 +15,10 @@
   },
   "dependencies": {
     "@svgr/plugin-svgo": "^8.1.0",
+    "@types/jquery": "^3.5.33",
     "axios": "^1.9.0",
     "firebase": "^11.7.3",
+    "jquery": "^3.7.1",
     "postcss-styled-syntax": "^0.7.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

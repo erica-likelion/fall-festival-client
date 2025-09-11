@@ -142,11 +142,7 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       rollupOptions: {
-        external: ['jquery'],
         output: {
-          globals: {
-            jquery: 'jQuery',
-          },
           manualChunks: {
             // React 관련 라이브러리를 별도 청크로 분리
             'react-vendor': ['react', 'react-dom', 'react-router-dom'],

@@ -9,6 +9,11 @@ export interface BeforeInstallPromptEvent {
 }
 
 declare global {
+  interface Window {
+    $: typeof import('jquery');
+    jQuery: typeof import('jquery');
+  }
+
   interface WindowEventMap {
     beforeinstallprompt: BeforeInstallPromptEvent;
   }
