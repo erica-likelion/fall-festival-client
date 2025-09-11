@@ -17,9 +17,15 @@ export const TopBarBackground = styled.div<{ $isFromSearch?: boolean }>`
   top: 0;
   left: 0;
   width: 100%;
-  height: ${(props) => (props.$isFromSearch ? '7rem' : '10.5rem')};
+  height: ${(props) => (props.$isFromSearch ? '3.9rem' : '10.5rem')};
   z-index: -1;
-  background: linear-gradient(to bottom, #fafafaff 5%, transparent 100%);
+  background: ${(props) =>
+    props.$isFromSearch
+      ? props.theme.colors.grayScale.white
+      : 'linear-gradient(to bottom, #fafafa 0%, transparent 100%)'};
+
+  ${(props) =>
+    props.$isFromSearch && `box-shadow: 0 0 0.75rem 0 ${props.theme.colors.primary.violet}4D`};
 `;
 
 export const MapWrapper = styled.div<{ $isBottomSheetOpen?: boolean }>`
@@ -56,7 +62,7 @@ export const SearchBarContainer = styled.div`
 
 export const CategoryTabsContainer = styled.div<{ $isFromSearch?: boolean }>`
   position: absolute;
-  top: ${(props) => (props.$isFromSearch ? '2.8rem' : '6.7rem')};
+  top: ${(props) => (props.$isFromSearch ? '3.7rem' : '6.7rem')};
   display: flex;
   width: 100%;
   align-items: center;

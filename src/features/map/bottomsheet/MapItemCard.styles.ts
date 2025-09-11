@@ -5,7 +5,7 @@ export const MapItemCardContainer = styled.div`
   flex-direction: row;
   width: 20.9375rem;
   gap: 0.75rem;
-  border-radius: 0.75rem;
+  border-radius: 0.45rem;
   background-color: ${(props) => props.theme.colors.grayScale.white};
   cursor: pointer;
   overflow: hidden;
@@ -15,7 +15,7 @@ export const ItemImage = styled.img`
   width: 4.5rem; /* 72px */
   height: 4.5rem; /* 72px */
   flex-shrink: 0;
-  border-radius: 0.439rem;
+  border-radius: 0.45rem;
   object-fit: cover;
 `;
 
