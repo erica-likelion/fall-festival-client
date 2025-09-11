@@ -55,22 +55,21 @@ export default function BoothLocation({
     '1일차',
     true, // 단일 아이템 모드
     singleBoothData,
-    singleBoothData
-      ? {
-          주점: [singleBoothData],
-          '주류 구매 위치': [],
-          플리마켓: [],
-          프로모션: [],
-          콘텐츠: [],
-          화장실: [],
-          '온열질환 대비소': [],
-          공연장: [],
-          셔틀콕: [],
-          푸드트럭: [],
-          흡연구역: [],
-          AED: [],
-        }
-      : undefined,
+    // singleBoothData가 있을 때만 customMapData 제공, 없으면 빈 객체 제공
+    {
+      주점: singleBoothData ? [singleBoothData] : [],
+      '주류 구매 위치': [],
+      플리마켓: [],
+      프로모션: [],
+      콘텐츠: [],
+      화장실: [],
+      '온열질환 대비소': [],
+      공연장: [],
+      셔틀콕: [],
+      푸드트럭: [],
+      흡연구역: [],
+      AED: [],
+    },
   );
 
   // 데이터 로드

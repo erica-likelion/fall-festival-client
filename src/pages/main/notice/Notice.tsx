@@ -3,7 +3,7 @@ import * as S from './Notice.styles';
 import { useLayoutStore } from '@/stores/useLayoutStore';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { NoticeBox } from '@/features/main/components/notice/index';
+import NoticeBox from '@/features/main/components/notice/NoticeBox';
 import { fetchNotices, NoticeItem } from '@/services/noticeService';
 import { Tabs } from '@/components/tabs';
 

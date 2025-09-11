@@ -1,4 +1,4 @@
-import { MapDataItem } from '@/constants/map/MapData';
+import { MapDataItem } from './BottomSheet.types';
 import * as S from './MapItemCard.styles';
 import { FavoriteButton } from '@/components/favorite-button';
 import { useState } from 'react';

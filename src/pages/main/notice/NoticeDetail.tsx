@@ -1,5 +1,4 @@
 import { useParams, useNavigate } from 'react-router-dom';
-// import { NoticeData } from '@/constants/main/Notice'; // 기존 하드코딩 데이터 (주석 처리)
 import { NavBar } from '@/components/nav-bar';
 import * as S from './NoticeDetail.styles';
 import { useEffect, useState } from 'react';

@@ -12,7 +12,7 @@ import * as S from './MapPage.styles';
 import { useLayoutStore } from '@/stores/useLayoutStore';
 import ReCenterButtonIcon from '@/assets/icons/re-center.svg?react';
 import { useKakaoMap } from '@/hooks/useKakaoMap';
-import { MapDataItem } from '@/constants/map/MapData';
+import { MapDataItem } from '@/features/map/bottomsheet/BottomSheet.types';
 import { useMarkerStore } from '@/stores/useMarkerStore';
 import { useBooths } from '@/hooks/useBooth';
 

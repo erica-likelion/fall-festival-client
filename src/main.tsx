@@ -3,30 +3,41 @@ import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from '@/styles/global';
 import { theme } from '@/styles/theme';
-import {
-  Main,
-  Map,
-  MapSearch,
-  Performance,
-  Booth,
-  BoothDetail,
-  //User,
-  PerformanceDetail,
-  TimeTable,
-  Notice,
-  NoticeDetail,
-  MadeBy,
-  Faq,
-  FortuneOnboarding,
-  FortuneSelecting,
-  FortuneResult,
-  Polaroid,
-  Favorites,
-  BoothSearch,
-  ErrorPage,
-} from '@/pages';
+import { lazy, Suspense } from 'react';
 import Layout from '@/layout';
 import { ensureSessionCookie } from '@/utils/session';
+import { PageLoadingSpinner } from '@/components/loading';
+
+// 즉시 로드가 필요한 핵심 컴포넌트만 직접 import
+import Main from '@/pages/main/Main';
+import ErrorPage from '@/pages/error/ErrorPage';
+
+// 나머지 페이지들은 lazy loading
+const Map = lazy(() => import('@/pages/map/MapPage'));
+const MapSearch = lazy(() => import('@/pages/map/SearchPage'));
+const Performance = lazy(() => import('@/pages/performance/Performance'));
+const Booth = lazy(() => import('@/pages/booth/Booth'));
+const BoothDetail = lazy(() => import('@/pages/booth/BoothDetail'));
+const PerformanceDetail = lazy(() => import('@/pages/performance/PerformanceDetail'));
+const TimeTable = lazy(() => import('@/pages/performance/TimeTable'));
+const Notice = lazy(() => import('@/pages/main/notice/Notice'));
+const NoticeDetail = lazy(() => import('@/pages/main/notice/NoticeDetail'));
+const MadeBy = lazy(() =>
+  import('@/pages/main/made').then((module) => ({ default: module.MadeBy })),
+);
+const Faq = lazy(() => import('@/pages/main/faq').then((module) => ({ default: module.Faq })));
+const FortuneOnboarding = lazy(() =>
+  import('@/pages/main/fortune').then((module) => ({ default: module.FortuneOnboarding })),
+);
+const FortuneSelecting = lazy(() =>
+  import('@/pages/main/fortune').then((module) => ({ default: module.FortuneSelecting })),
+);
+const FortuneResult = lazy(() =>
+  import('@/pages/main/fortune').then((module) => ({ default: module.FortuneResult })),
+);
+const Polaroid = lazy(() => import('@/pages/polaroid/Polaroid'));
+const Favorites = lazy(() => import('@/pages/booth/favorites/Favorites'));
+const BoothSearch = lazy(() => import('@/pages/booth/search/BoothSearch'));
 
 // 비로그인 사용자 세션 쿠키 보장
 ensureSessionCookie();
@@ -54,11 +65,19 @@ const routes = createBrowserRouter([
       */
       {
         path: 'main/notice',
-        element: <Notice />,
+        element: (
+          <Suspense fallback={<PageLoadingSpinner />}>
+            <Notice />
+          </Suspense>
+        ),
       },
       {
         path: 'main/notice/:id',
-        element: <NoticeDetail />,
+        element: (
+          <Suspense fallback={<PageLoadingSpinner />}>
+            <NoticeDetail />
+          </Suspense>
+        ),
       },
       /*
       {
@@ -84,23 +103,113 @@ const routes = createBrowserRouter([
       */
       {
         path: 'main/about',
-        element: <MadeBy />,
+        element: (
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100vh',
+                  color: '#7E419A',
+                }}
+              >
+                로딩 중...
+              </div>
+            }
+          >
+            <MadeBy />
+          </Suspense>
+        ),
       },
       {
         path: 'main/faq',
-        element: <Faq />,
+        element: (
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100vh',
+                  color: '#7E419A',
+                }}
+              >
+                로딩 중...
+              </div>
+            }
+          >
+            <Faq />
+          </Suspense>
+        ),
       },
       {
         path: 'main/fortune/onboarding',
-        element: <FortuneOnboarding />,
+        element: (
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100vh',
+                  color: '#7E419A',
+                }}
+              >
+                로딩 중...
+              </div>
+            }
+          >
+            <FortuneOnboarding />
+          </Suspense>
+        ),
       },
       {
         path: 'main/fortune/selecting',
-        element: <FortuneSelecting />,
+        element: (
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100vh',
+                  color: '#7E419A',
+                }}
+              >
+                로딩 중...
+              </div>
+            }
+          >
+            <FortuneSelecting />
+          </Suspense>
+        ),
       },
       {
         path: 'main/fortune/result',
-        element: <FortuneResult />,
+        element: (
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100vh',
+                  color: '#7E419A',
+                }}
+              >
+                로딩 중...
+              </div>
+            }
+          >
+            <FortuneResult />
+          </Suspense>
+        ),
       },
       /*{
         path: 'user',
@@ -108,48 +217,246 @@ const routes = createBrowserRouter([
       },*/
       {
         path: 'map',
-        element: <Map />,
+        element: (
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100vh',
+                  color: '#7E419A',
+                }}
+              >
+                로딩 중...
+              </div>
+            }
+          >
+            <Map />
+          </Suspense>
+        ),
       },
       {
         path: 'map/search',
-        element: <MapSearch />,
+        element: (
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100vh',
+                  color: '#7E419A',
+                }}
+              >
+                로딩 중...
+              </div>
+            }
+          >
+            <MapSearch />
+          </Suspense>
+        ),
       },
       {
         path: 'map/:itemId',
-        element: <Map />,
+        element: (
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100vh',
+                  color: '#7E419A',
+                }}
+              >
+                로딩 중...
+              </div>
+            }
+          >
+            <Map />
+          </Suspense>
+        ),
       },
       {
         path: 'performance',
-        element: <Performance />,
+        element: (
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100vh',
+                  color: '#7E419A',
+                }}
+              >
+                로딩 중...
+              </div>
+            }
+          >
+            <Performance />
+          </Suspense>
+        ),
       },
 
       {
         path: 'performance/detail',
-        element: <PerformanceDetail />,
+        element: (
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100vh',
+                  color: '#7E419A',
+                }}
+              >
+                로딩 중...
+              </div>
+            }
+          >
+            <PerformanceDetail />
+          </Suspense>
+        ),
       },
       {
         path: '/performance/timetable',
-        element: <TimeTable />,
+        element: (
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100vh',
+                  color: '#7E419A',
+                }}
+              >
+                로딩 중...
+              </div>
+            }
+          >
+            <TimeTable />
+          </Suspense>
+        ),
       },
       {
         path: 'booth',
-        element: <Booth />,
+        element: (
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100vh',
+                  color: '#7E419A',
+                }}
+              >
+                로딩 중...
+              </div>
+            }
+          >
+            <Booth />
+          </Suspense>
+        ),
       },
       {
         path: 'booth/:id',
-        element: <BoothDetail />,
+        element: (
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100vh',
+                  color: '#7E419A',
+                }}
+              >
+                로딩 중...
+              </div>
+            }
+          >
+            <BoothDetail />
+          </Suspense>
+        ),
       },
       {
         path: 'polaroid',
-        element: <Polaroid />,
+        element: (
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100vh',
+                  color: '#7E419A',
+                }}
+              >
+                로딩 중...
+              </div>
+            }
+          >
+            <Polaroid />
+          </Suspense>
+        ),
       },
       {
         path: 'favorites',
-        element: <Favorites />,
+        element: (
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100vh',
+                  color: '#7E419A',
+                }}
+              >
+                로딩 중...
+              </div>
+            }
+          >
+            <Favorites />
+          </Suspense>
+        ),
       },
       {
         path: 'booth/search',
-        element: <BoothSearch />,
+        element: (
+          <Suspense
+            fallback={
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  height: '100vh',
+                  color: '#7E419A',
+                }}
+              >
+                로딩 중...
+              </div>
+            }
+          >
+            <BoothSearch />
+          </Suspense>
+        ),
       },
       {
         path: '*',

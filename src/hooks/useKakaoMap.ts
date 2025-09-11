@@ -3,7 +3,7 @@ import { KakaoMapOptions } from '@/types/kakao-maps';
 import { getCategoryMarkerImage, markerIcons } from '@/utils/markerIcons';
 import { CATEGORIES } from '@/constants/map';
 import { DAYS } from '@/constants/map';
-import { MapData, MapDataItem } from '@/constants/map/MapData';
+import { MapDataItem } from '@/features/map/bottomsheet/BottomSheet.types';
 
 export function useKakaoMap(
   options: KakaoMapOptions = {},
@@ -11,7 +11,7 @@ export function useKakaoMap(
   selectedDay: DAYS,
   singleItemMode: boolean = false, // 단일 아이템 모드 매개변수 추가
   singleItem: MapDataItem | null = null, // 단일 아이템 데이터 매개변수 추가
-  customMapData?: Record<CATEGORIES, MapDataItem[]>, // 통합된 맵 데이터
+  customMapData: Record<CATEGORIES, MapDataItem[]>, // 통합된 맵 데이터 (필수로 변경)
 ) {
   // 커스텀 오버레이 참조 저장
   const internalMapRef = useRef<HTMLDivElement>(null);
@@ -20,8 +20,8 @@ export function useKakaoMap(
   const customOverlaysRef = useRef<kakao.maps.CustomOverlay[]>([]);
   const customPolygonsRef = useRef<kakao.maps.Polygon[]>([]);
 
-  // 사용할 데이터 소스 결정 (customMapData가 있으면 사용, 없으면 기본 MapData 사용)
-  const dataSource = customMapData || MapData;
+  // 사용할 데이터 소스는 customMapData만 사용
+  const dataSource = customMapData;
 
   // 지도 크기가 변경될 때 relayout 호출
   useEffect(() => {
@@ -358,7 +358,7 @@ export function useKakaoMap(
       const overlays: { overlay: kakao.maps.CustomOverlay; isSelected: boolean }[] = [];
 
       // dataSource에서 모든 위치를 처리
-      dataSource[selectedCategory].forEach((location) => {
+      dataSource[selectedCategory].forEach((location: MapDataItem) => {
         // closeDay에 해당되는 마커는 건너뛰기
         if (location.closeDay && location.closeDay.includes(selectedDay)) {
           return;
@@ -476,7 +476,8 @@ export function useKakaoMap(
 
       // 해당 아이템과 일치하는 위치 정보 찾기
       const targetLocation = categoryData.find(
-        (location) => location.lat === singleItem.lat && location.lng === singleItem.lng,
+        (location: MapDataItem) =>
+          location.lat === singleItem.lat && location.lng === singleItem.lng,
       );
 
       if (
@@ -515,7 +516,7 @@ export function useKakaoMap(
       // 🔥 일반 모드인 경우 카테고리 전체 아이템 표시 (기존 로직)
       console.log(`[KakaoMap] 일반 모드 - 전체 ${selectedCategory} 마커 표시`);
 
-      categoryData.forEach((location) => {
+      categoryData.forEach((location: MapDataItem) => {
         console.log(`[KakaoMap] 마커 생성 시도: ${location.title}`);
         // closeDay에 현재 선택된 날짜가 포함되어 있으면 마커를 표시하지 않음
         if (location.closeDay && location.closeDay.includes(selectedDay)) {

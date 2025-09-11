@@ -4,7 +4,7 @@ import * as S from './SearchPage.styles';
 import { NavBar } from '@/components/nav-bar';
 import { Tabs } from '@/components/tabs';
 import { useLayoutStore } from '@/stores/useLayoutStore';
-import { MapDataItem } from '@/constants/map/MapData';
+import { MapDataItem } from '@/features/map/bottomsheet/BottomSheet.types';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useMarkerStore } from '@/stores/useMarkerStore';
 import { useBooths } from '@/hooks/useBooth';

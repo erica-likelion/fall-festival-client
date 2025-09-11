@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './MainNoticeList.styles';
-// import { NoticeData } from '@/constants/main/Notice'; // 기존 하드코딩 데이터 (주석 처리)
 import { useNavigate } from 'react-router-dom';
 import { fetchMainNotices, NoticeItem } from '@/services/noticeService';
 

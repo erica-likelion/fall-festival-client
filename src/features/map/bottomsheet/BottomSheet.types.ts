@@ -1,7 +1,17 @@
 import { CATEGORIES } from '@/constants/map';
 import { DAYS } from '@/constants/map';
 import { ReactNode } from 'react';
-import { MapDataItem } from '@/constants/map/MapData';
+import { ImageTextFrameWithTimeProps } from '@/components/image-text-frame/ImageTextFrame.types';
+
+// 맵 데이터 아이템 타입 정의 (MapData.ts에서 분리)
+export interface MapDataItem extends ImageTextFrameWithTimeProps {
+  id?: number; // 고유 ID
+  path?: string; // 경로
+  lat?: number; // 위도
+  lng?: number; // 경도
+  closeDay?: DAYS[];
+  canPickup?: boolean; // 포장가능 여부
+}
 
 /**
  * 바텀시트 컴포넌트 Props 타입 정의
@@ -18,5 +28,5 @@ export interface BottomSheetProps {
   children?: ReactNode;
   onItemClick?: (item: MapDataItem) => void;
   selectedItemId?: number | null;
-  customMapData?: Record<CATEGORIES, MapDataItem[]>; // 통합된 맵 데이터
+  customMapData: Record<CATEGORIES, MapDataItem[]>; // 통합된 맵 데이터 (필수로 변경)
 }

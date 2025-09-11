@@ -4,7 +4,6 @@ import { useBottomSheet } from '@/hooks/useBottomSheet';
 import * as S from './BottomSheet.styles';
 import { BottomSheetProps } from './BottomSheet.types';
 import { Notification } from '@/components/notification';
-import { MapData } from '@/constants/map/MapData';
 import { useNotificationStore } from '@/stores/useNotificationStore';
 import { CATEGORY_NOTIFICATIONS } from '@/constants/map/CategoryNotifications';
 import { days } from '@/constants/map';
@@ -57,8 +56,29 @@ export default function BottomSheet({
     }
   }, [selectedCategory, isNotificationClosed]);
 
-  // 사용할 데이터 소스 결정 (customMapData가 있으면 사용, 없으면 기본 MapData 사용)
-  const dataSource = customMapData || MapData;
+  // 알림 클릭 핸들러 - 경로로 이동
+  const handleNotificationClick = useCallback(() => {
+    if (selectedCategory && CATEGORY_NOTIFICATIONS[selectedCategory]?.path) {
+      navigate(CATEGORY_NOTIFICATIONS[selectedCategory].path);
+    }
+  }, [selectedCategory, navigate]);
+
+  // 알림 닫기 핸들러
+  const handleCloseNotification = useCallback(() => {
+    if (selectedCategory) {
+      closeNotification(selectedCategory);
+      setShowNotification(false);
+    }
+  }, [selectedCategory, closeNotification]);
+
+  // selectedCategory와 customMapData가 둘 다 있을 때만 렌더링
+  if (!selectedCategory) {
+    console.log('[BottomSheet] selectedCategory가 없으므로 바텀시트를 렌더링하지 않습니다.');
+    return null;
+  }
+
+  // 사용할 데이터 소스는 customMapData만 사용
+  const dataSource = customMapData;
 
   // selectedCategory가 null이 아닌 경우에만 데이터 필터링
   // closeDay 배열에 현재 선택된 날짜가 포함된 항목은 제외
@@ -85,26 +105,6 @@ export default function BottomSheet({
     data: filteredData,
     usingCustomData: !!customMapData,
   });
-
-  // 알림 클릭 핸들러 - 경로로 이동
-  const handleNotificationClick = useCallback(() => {
-    if (selectedCategory && CATEGORY_NOTIFICATIONS[selectedCategory]?.path) {
-      navigate(CATEGORY_NOTIFICATIONS[selectedCategory].path);
-    }
-  }, [selectedCategory, navigate]);
-
-  // 알림 닫기 핸들러
-  const handleCloseNotification = useCallback(() => {
-    if (selectedCategory) {
-      closeNotification(selectedCategory);
-      setShowNotification(false);
-    }
-  }, [selectedCategory, closeNotification]);
-
-  if (!selectedCategory) {
-    console.log('[BottomSheet] selectedCategory가 null이므로 바텀시트를 렌더링하지 않습니다.');
-    return null;
-  }
 
   console.log(
     '[BottomSheet] 바텀시트 렌더링 - selectedCategory:',
