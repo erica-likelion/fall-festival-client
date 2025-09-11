@@ -535,7 +535,10 @@ export default function Polaroid() {
               <S.ShakeInstructions>
                 <S.ShakeText>사진을 터치해서 현상해 주세요</S.ShakeText>
                 <S.ShakeCounter>{shakeProgressText}</S.ShakeCounter>
-                <S.SubtleText>센서 권한이 없어도 터치로 현상할 수 있어요</S.SubtleText>
+                <S.SubtleText>
+                  <br />
+                  센서 권한이 없어도 터치로 현상할 수 있어요
+                </S.SubtleText>
               </S.ShakeInstructions>
             )}
 

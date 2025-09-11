@@ -46,12 +46,43 @@ const BoothSearch = lazy(() => import('@/pages/booth/search/BoothSearch'));
 // 비로그인 사용자 세션 쿠키 보장
 ensureSessionCookie();
 
+function withSuspense(element: React.ReactNode) {
+  return <Suspense fallback={<PageLoadingSpinner />}>{element}</Suspense>;
+}
+
+const lazyRoutes = [
+  { path: 'main/notice', element: <Notice /> },
+  { path: 'main/notice/:id', element: <NoticeDetail /> },
+  { path: 'main/about', element: <MadeBy /> },
+  { path: 'main/faq', element: <Faq /> },
+  { path: 'main/fortune/onboarding', element: <FortuneOnboarding /> },
+  { path: 'main/fortune/selecting', element: <FortuneSelecting /> },
+  { path: 'main/fortune/result', element: <FortuneResult /> },
+  { path: 'map', element: <Map /> },
+  { path: 'map/search', element: <MapSearch /> },
+  { path: 'map/:itemId', element: <Map /> },
+  { path: 'performance', element: <Performance /> },
+  { path: 'performance/detail', element: <PerformanceDetail /> },
+  { path: '/performance/timetable', element: <TimeTable /> },
+  { path: 'booth', element: <Booth /> },
+  { path: 'booth/:id', element: <BoothDetail /> },
+  { path: 'polaroid', element: <Polaroid /> },
+  { path: 'favorites', element: <Favorites /> },
+  { path: 'booth/search', element: <BoothSearch /> },
+];
+
 const routes = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
     loader: async () => {},
-    errorElement: <>ERROR</>,
+    errorElement: (
+      <ErrorPage
+        mainText="무언가가 잘못되었어요!"
+        subText="잠시 후 다시 시도해주세요."
+        showHomeButton={true}
+      />
+    ),
     children: [
       {
         index: true,
@@ -61,407 +92,10 @@ const routes = createBrowserRouter([
         path: 'main',
         element: <Main />,
       },
-      /*
-      {
-        path: 'main/lost/search',
-        element: <LostSearch />,
-      },
-      */
-      {
-        path: 'main/notice',
-        element: (
-          <Suspense fallback={<PageLoadingSpinner />}>
-            <Notice />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'main/notice/:id',
-        element: (
-          <Suspense fallback={<PageLoadingSpinner />}>
-            <NoticeDetail />
-          </Suspense>
-        ),
-      },
-      /*
-      {
-        path: 'main/lost',
-        element: <Lost />,
-      },
-      {
-        path: 'main/lost/upload',
-        element: <LostUpload />,
-      },
-      {
-        path: 'main/lost/upload/complete',
-        element: <LostComplete />,
-      },
-      {
-        path: 'main/lost/upload/fail',
-        element: <LostFail />,
-      },
-      {
-        path: 'main/lost/post/:id',
-        element: <LostPost />,
-      },
-      */
-      {
-        path: 'main/about',
-        element: (
-          <Suspense
-            fallback={
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100vh',
-                  color: '#7E419A',
-                }}
-              >
-                로딩 중...
-              </div>
-            }
-          >
-            <MadeBy />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'main/faq',
-        element: (
-          <Suspense
-            fallback={
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100vh',
-                  color: '#7E419A',
-                }}
-              >
-                로딩 중...
-              </div>
-            }
-          >
-            <Faq />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'main/fortune/onboarding',
-        element: (
-          <Suspense
-            fallback={
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100vh',
-                  color: '#7E419A',
-                }}
-              >
-                로딩 중...
-              </div>
-            }
-          >
-            <FortuneOnboarding />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'main/fortune/selecting',
-        element: (
-          <Suspense
-            fallback={
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100vh',
-                  color: '#7E419A',
-                }}
-              >
-                로딩 중...
-              </div>
-            }
-          >
-            <FortuneSelecting />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'main/fortune/result',
-        element: (
-          <Suspense
-            fallback={
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100vh',
-                  color: '#7E419A',
-                }}
-              >
-                로딩 중...
-              </div>
-            }
-          >
-            <FortuneResult />
-          </Suspense>
-        ),
-      },
-      /*{
-        path: 'user',
-        element: <User />,
-      },*/
-      {
-        path: 'map',
-        element: (
-          <Suspense
-            fallback={
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100vh',
-                  color: '#7E419A',
-                }}
-              >
-                로딩 중...
-              </div>
-            }
-          >
-            <Map />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'map/search',
-        element: (
-          <Suspense
-            fallback={
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100vh',
-                  color: '#7E419A',
-                }}
-              >
-                로딩 중...
-              </div>
-            }
-          >
-            <MapSearch />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'map/:itemId',
-        element: (
-          <Suspense
-            fallback={
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100vh',
-                  color: '#7E419A',
-                }}
-              >
-                로딩 중...
-              </div>
-            }
-          >
-            <Map />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'performance',
-        element: (
-          <Suspense
-            fallback={
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100vh',
-                  color: '#7E419A',
-                }}
-              >
-                로딩 중...
-              </div>
-            }
-          >
-            <Performance />
-          </Suspense>
-        ),
-      },
-
-      {
-        path: 'performance/detail',
-        element: (
-          <Suspense
-            fallback={
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100vh',
-                  color: '#7E419A',
-                }}
-              >
-                로딩 중...
-              </div>
-            }
-          >
-            <PerformanceDetail />
-          </Suspense>
-        ),
-      },
-      {
-        path: '/performance/timetable',
-        element: (
-          <Suspense
-            fallback={
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100vh',
-                  color: '#7E419A',
-                }}
-              >
-                로딩 중...
-              </div>
-            }
-          >
-            <TimeTable />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'booth',
-        element: (
-          <Suspense
-            fallback={
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100vh',
-                  color: '#7E419A',
-                }}
-              >
-                로딩 중...
-              </div>
-            }
-          >
-            <Booth />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'booth/:id',
-        element: (
-          <Suspense
-            fallback={
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100vh',
-                  color: '#7E419A',
-                }}
-              >
-                로딩 중...
-              </div>
-            }
-          >
-            <BoothDetail />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'polaroid',
-        element: (
-          <Suspense
-            fallback={
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100vh',
-                  color: '#7E419A',
-                }}
-              >
-                로딩 중...
-              </div>
-            }
-          >
-            <Polaroid />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'favorites',
-        element: (
-          <Suspense
-            fallback={
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100vh',
-                  color: '#7E419A',
-                }}
-              >
-                로딩 중...
-              </div>
-            }
-          >
-            <Favorites />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'booth/search',
-        element: (
-          <Suspense
-            fallback={
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100vh',
-                  color: '#7E419A',
-                }}
-              >
-                로딩 중...
-              </div>
-            }
-          >
-            <BoothSearch />
-          </Suspense>
-        ),
-      },
+      ...lazyRoutes.map(({ path, element }) => ({
+        path,
+        element: withSuspense(element),
+      })),
       {
         path: '*',
         element: (
@@ -489,27 +123,3 @@ window.addEventListener('DOMContentLoaded', () => {
   const splash = document.getElementById('splash-screen');
   if (splash) splash.remove();
 });
-
-// if ('serviceWorker' in navigator) {
-//   window.addEventListener('load', () => {
-//     navigator.serviceWorker
-//       .register('/sw.js')
-//       .then((registration) => {
-//         console.log('✅ PWA 서비스워커 등록 완료:', registration);
-//       })
-//       .catch((err) => {
-//         console.error('❌ PWA 서비스워커 등록 실패:', err);
-//       });
-//     // Firebase FCM 서비스워커 등록 비활성화
-//     /*
-//     navigator.serviceWorker
-//       .register('/firebase-messaging-sw.js')
-//       .then((registration) => {
-//         console.log('✅ FCM 서비스워커 등록 완료:', registration);
-//       })
-//       .catch((err) => {
-//         console.error('❌ FCM 서비스워커 등록 실패:', err);
-//       });
-//     */
-//   });
-// }
