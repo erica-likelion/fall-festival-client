@@ -19,10 +19,7 @@ export const TopBarBackground = styled.div<{ $isFromSearch?: boolean }>`
   width: 100%;
   height: ${(props) => (props.$isFromSearch ? '7rem' : '10.5rem')};
   z-index: -1;
-  background: linear-gradient(to bottom, #fafafa 5%, transparent 100%), #ffffff1d;
-  box-shadow: 0 2px 3px ${({ theme }) => theme.colors.primary.violet}20;
-  backdrop-filter: blur(10px) saturate(180%);
-  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  background: linear-gradient(to bottom, #fafafaff 1%, transparent 100%);
 `;
 
 export const MapWrapper = styled.div<{ $isBottomSheetOpen?: boolean }>`
@@ -59,7 +56,7 @@ export const SearchBarContainer = styled.div`
 
 export const CategoryTabsContainer = styled.div<{ $isFromSearch?: boolean }>`
   position: absolute;
-  top: ${(props) => (props.$isFromSearch ? '4.125rem' : '7.7rem')};
+  top: ${(props) => (props.$isFromSearch ? '3rem' : '7.2rem')};
   display: flex;
   width: 100%;
   align-items: center;
@@ -81,12 +78,15 @@ export const CategoryTabsContainer = styled.div<{ $isFromSearch?: boolean }>`
   /* 부드러운 스크롤 */
   scroll-behavior: smooth;
 
-  /* 새 탭 스타일 - 아직은 비활성화 */
+  button {
+    box-shadow: 0 0 0.75rem 0 ${(props) => props.theme.colors.primary.violet}4D;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
 
-  /*
   button[data-active='false'] {
-    background-color: ${({ theme }) => theme.colors.grayScale.white}B3 !important;
-    border-color: ${({ theme }) => theme.colors.grayScale.white} !important;
+    background-color: ${({ theme }) => theme.colors.grayScale.white} !important;
+    border-color: transparent !important;
 
     p {
       color: ${({ theme }) => theme.colors.grayScale.gy800} !important;
@@ -102,7 +102,6 @@ export const CategoryTabsContainer = styled.div<{ $isFromSearch?: boolean }>`
       font-weight: 600;
     }
   }
-  */
 `;
 
 export const ReCenterButton = styled.div<{ $isBottomSheetOpen?: boolean }>`

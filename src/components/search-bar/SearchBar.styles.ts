@@ -8,7 +8,7 @@ export const Container = styled.div`
   flex-shrink: 0;
   background: ${(props) => props.theme.colors.grayScale.white};
   border-radius: 0.75rem;
-  box-shadow: 0 0 0.75rem 0 ${(props) => props.theme.colors.primary.violet}20;
+  box-shadow: 0 0 0.75rem 0 ${(props) => props.theme.colors.primary.violet}4D;
   padding: 0 1.375rem 0 1.5rem;
   align-items: center;
   transition: all 0.2s ease;

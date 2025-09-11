@@ -20,6 +20,7 @@ export const BottomSheetMotionDiv = styled(motion.div)`
   will-change: transform; /* 성능 최적화 */
   touch-action: pan-y; /* 수직 스크롤만 허용 */
   -webkit-overflow-scrolling: touch; /* iOS 스크롤 부드럽게 */
+  box-shadow: 0 -0.25rem 1rem 0 ${(props) => props.theme.colors.primary.violet}30;
 `;
 
 export const BottomSheetHeader = styled.div`
