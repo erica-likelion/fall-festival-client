@@ -2,6 +2,7 @@ import * as S from './BoothList.styles';
 import { ImageTextFrameWithOrganization } from '@/components/image-text-frame';
 import { Notification } from '@/components/notification';
 import { FavoriteButton } from '@/components/favorite-button';
+import PageLoadingSpinner from '@/components/loading/PageLoadingSpinner';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Fragment } from 'react/jsx-runtime';
 import { useState } from 'react';
@@ -16,7 +17,7 @@ interface BoothListProps {
 export default function BoothList({ showFavoritesOnly = false, hideTabs = false }: BoothListProps) {
   const navigate = useNavigate();
   const location = useLocation();
-  const { booths, error } = useBooths();
+  const { booths, loading, error } = useBooths();
   const { isBoothNotificationClosed, closeBoothNotification } = useBoothNotificationStore();
 
   // 찜하기 기능 상태 관리 추가 (localStorage)
@@ -42,6 +43,10 @@ export default function BoothList({ showFavoritesOnly = false, hideTabs = false 
   const displayBooths = showFavoritesOnly
     ? booths.filter((booth) => favorites.includes(booth.id))
     : booths;
+
+  if (loading) {
+    return <PageLoadingSpinner />;
+  }
 
   if (error) {
     navigate('/error', {
