@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { NavBar } from '@/components/nav-bar';
 import * as S from './FortuneOnboarding.styles';
 import { useLayoutStore } from '@/stores/useLayoutStore';
+import { useToastStore } from '@/stores/useToastStore';
+import { useFortune } from '@/hooks/useFortune';
 import Lottie from 'react-lottie-player';
 import fortuneAnimation from '@/assets/lotties/fortune/Background_Size.json';
 import FortuneBall from '@/assets/images/fortune/Ball.webp';
@@ -12,6 +14,8 @@ import ValidationModal from '@/components/validation-modal/ValidationModal';
 export default function FortuneOnboarding() {
   const setIsNav = useLayoutStore((state) => state.setIsNav);
   const navigate = useNavigate();
+  const showToast = useToastStore((state) => state.showToast);
+  const { getFortune, loading } = useFortune();
   const [name, setName] = useState('');
   const [birthDate, setBirthDate] = useState('');
   const { open: openModal, close: closeModal } = useModal(ValidationModal);
@@ -47,25 +51,36 @@ export default function FortuneOnboarding() {
     return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
   };
 
-  const handleFortuneClick = () => {
-    if (name.trim() && birthDate.length === 8 && isValidDate(birthDate)) {
-      navigate('/main/fortune/selecting', {
-        state: { name, birthDate },
-      });
-    } else if (!name.trim()) {
+  const handleFortuneClick = async () => {
+    if (!name.trim()) {
       openModal({
         title: '이름을 확인해 주세요!',
         message: '아직 이름이 입력되지 않았어요.\n원활한 진행을 위해 이름을 입력해 주세요!',
         buttonText: '다시 입력하기',
         onConfirm: closeModal,
       });
-    } else if (!isValidDate(birthDate)) {
+      return;
+    }
+
+    if (!isValidDate(birthDate)) {
       openModal({
         title: '생년월일을 확인해 주세요!',
         message: '유효하지 않은 생년월일이에요. \n 올바른 생년월일 8자리를 입력해주세요!',
         buttonText: '다시 입력하기',
         onConfirm: closeModal,
       });
+      return;
+    }
+
+    if (loading) return;
+
+    try {
+      const imageUrl = await getFortune({ name, birth: birthDate });
+      navigate('/main/fortune/selecting', {
+        state: { name, birthDate, fortuneImageUrl: imageUrl },
+      });
+    } catch {
+      showToast('동시 접속자가 너무 많아\n잠시 후 다시 시도해주세요.');
     }
   };
 

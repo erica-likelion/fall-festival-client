@@ -17,11 +17,10 @@ export const TopBarBackground = styled.div<{ $isFromSearch?: boolean }>`
   top: 0;
   left: 0;
   width: 100%;
-  height: ${(props) => (props.$isFromSearch ? '7rem' : '10.2rem')};
+  height: ${(props) => (props.$isFromSearch ? '7rem' : '10.5rem')};
   z-index: -1;
-  border-radius: 0 0 1rem 1rem;
   background: linear-gradient(to bottom, #fafafa 5%, transparent 100%), #ffffff1d;
-  box-shadow: 0 2px 2px #dbc2e39b;
+  box-shadow: 0 2px 3px ${({ theme }) => theme.colors.primary.violet}20;
   backdrop-filter: blur(10px) saturate(180%);
   -webkit-backdrop-filter: blur(10px) saturate(180%);
 `;
@@ -81,6 +80,29 @@ export const CategoryTabsContainer = styled.div<{ $isFromSearch?: boolean }>`
 
   /* 부드러운 스크롤 */
   scroll-behavior: smooth;
+
+  /* 새 탭 스타일 - 아직은 비활성화 */
+
+  /*
+  button[data-active='false'] {
+    background-color: ${({ theme }) => theme.colors.grayScale.white}B3 !important;
+    border-color: ${({ theme }) => theme.colors.grayScale.white} !important;
+
+    p {
+      color: ${({ theme }) => theme.colors.grayScale.gy800} !important;
+      font-weight: 400;
+    }
+  }
+
+  button[data-active='true'] {
+    background-color: ${({ theme }) => theme.colors.primary.violet} !important;
+
+    p {
+      color: ${({ theme }) => theme.colors.grayScale.white} !important;
+      font-weight: 600;
+    }
+  }
+  */
 `;
 
 export const ReCenterButton = styled.div<{ $isBottomSheetOpen?: boolean }>`

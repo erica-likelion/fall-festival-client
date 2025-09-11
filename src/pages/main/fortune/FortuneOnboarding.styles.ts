@@ -86,7 +86,7 @@ export const Fortunelotties = styled.div`
     position: absolute;
     top: 71%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) translateZ(0);
     width: 136px;
     height: 156px;
     max-width: 80%;
@@ -94,11 +94,15 @@ export const Fortunelotties = styled.div`
     pointer-events: none;
     z-index: 1;
     margin-left: 0.25rem;
+    will-change: transform;
+    backface-visibility: hidden;
   }
 
   > div {
     position: relative;
     z-index: 2;
+    will-change: auto;
+    transform: translateZ(0);
   }
 `;
 

@@ -3,45 +3,39 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { NavBar } from '@/components/nav-bar';
 import * as S from './FortuneSelecting.styles';
 import { useLayoutStore } from '@/stores/useLayoutStore';
-import { useToastStore } from '@/stores/useToastStore';
-import { useFortune } from '@/hooks/useFortune';
 import FortuneCardBack from '@/assets/images/fortune/FortuneCardBack.webp';
 
 interface LocationState {
   name: string;
   birthDate: string;
+  fortuneImageUrl: string;
 }
 
 export default function FortuneSelecting() {
   const setIsNav = useLayoutStore((state) => state.setIsNav);
   const navigate = useNavigate();
   const location = useLocation();
-  const { getFortune, loading } = useFortune();
-  const showToast = useToastStore((state) => state.showToast);
 
   const state = location.state as LocationState;
-  const { name, birthDate } = state || { name: '', birthDate: '' };
+  const { name, birthDate, fortuneImageUrl } = state || {
+    name: '',
+    birthDate: '',
+    fortuneImageUrl: '',
+  };
 
   const handleCloseClick = () => {
     navigate('/main');
   };
 
-  const handleCardClick = async (cardIndex: number) => {
-    if (loading) return;
-
-    try {
-      const imageUrl = await getFortune({ name, birth: birthDate });
-      navigate('/main/fortune/result', {
-        state: {
-          selectedCardIndex: cardIndex,
-          name,
-          birthDate,
-          fortuneImageUrl: imageUrl,
-        },
-      });
-    } catch {
-      showToast('동시 접속자가 너무 많아\n잠시 후 다시 시도해주세요.');
-    }
+  const handleCardClick = (cardIndex: number) => {
+    navigate('/main/fortune/result', {
+      state: {
+        selectedCardIndex: cardIndex,
+        name,
+        birthDate,
+        fortuneImageUrl,
+      },
+    });
   };
 
   useEffect(() => {

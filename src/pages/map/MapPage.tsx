@@ -538,6 +538,7 @@ export default function Map() {
         {(isBottomSheetOpen || selectedMapCategory) && (
           <S.BottomSheetContainer>
             <MapPageBottomSheet
+              key={`bottomsheet-${selectedCategory}-${selectedDay}`}
               selectedCategory={selectedCategory}
               selectedDay={selectedDay}
               onItemClick={showItemMarker}
