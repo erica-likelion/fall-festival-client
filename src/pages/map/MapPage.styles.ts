@@ -19,7 +19,7 @@ export const TopBarBackground = styled.div<{ $isFromSearch?: boolean }>`
   width: 100%;
   height: ${(props) => (props.$isFromSearch ? '7rem' : '10.5rem')};
   z-index: -1;
-  background: linear-gradient(to bottom, #fafafaff 1%, transparent 100%);
+  background: linear-gradient(to bottom, #fafafaff 5%, transparent 100%);
 `;
 
 export const MapWrapper = styled.div<{ $isBottomSheetOpen?: boolean }>`
@@ -56,7 +56,7 @@ export const SearchBarContainer = styled.div`
 
 export const CategoryTabsContainer = styled.div<{ $isFromSearch?: boolean }>`
   position: absolute;
-  top: ${(props) => (props.$isFromSearch ? '3rem' : '7.2rem')};
+  top: ${(props) => (props.$isFromSearch ? '2.8rem' : '6.7rem')};
   display: flex;
   width: 100%;
   align-items: center;
