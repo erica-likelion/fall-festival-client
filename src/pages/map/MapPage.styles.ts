@@ -12,6 +12,20 @@ export const MapContainer = styled.div`
   background-color: gray;
 `;
 
+export const TopBarBackground = styled.div<{ $isFromSearch?: boolean }>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: ${(props) => (props.$isFromSearch ? '7rem' : '10.2rem')};
+  z-index: -1;
+  border-radius: 0 0 1rem 1rem;
+  background: linear-gradient(to bottom, #fafafa 5%, transparent 100%), #ffffff1d;
+  box-shadow: 0 2px 2px #dbc2e39b;
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+`;
+
 export const MapWrapper = styled.div<{ $isBottomSheetOpen?: boolean }>`
   position: absolute;
   top: 0;
@@ -46,7 +60,7 @@ export const SearchBarContainer = styled.div`
 
 export const CategoryTabsContainer = styled.div<{ $isFromSearch?: boolean }>`
   position: absolute;
-  top: ${(props) => (props.$isFromSearch ? '4.125rem' : '7.563rem')};
+  top: ${(props) => (props.$isFromSearch ? '4.125rem' : '7.7rem')};
   display: flex;
   width: 100%;
   align-items: center;

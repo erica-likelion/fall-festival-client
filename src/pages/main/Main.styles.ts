@@ -13,7 +13,6 @@ export const TitleBar = styled.div`
   width: 100%;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  position: fixed;
   padding: 1.3rem;
   top: 0;
   left: 0;

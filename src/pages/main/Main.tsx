@@ -50,7 +50,7 @@ export default function Main() {
       </S.TitleBar>
       <S.Main>
         <section>
-          <S.TitleWrapper style={{ marginTop: '6.8rem', marginBottom: 0 }}>
+          <S.TitleWrapper style={{ marginTop: '1rem', marginBottom: 0 }}>
             <S.Title>진행 중인 콘텐츠</S.Title>
           </S.TitleWrapper>
           <S.CarouselsBox>

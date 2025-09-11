@@ -466,6 +466,7 @@ export default function Map() {
         <ReCenterButtonIcon />
       </S.ReCenterButton>
       <S.ContentContainer>
+        <S.TopBarBackground $isFromSearch={!!(isFromSearchPage && selectedMapCategory)} />
         <NavBar
           isBack={isFromSearchPage && selectedMapCategory ? true : false}
           hideLeft={isFromSearchPage && selectedMapCategory ? false : true}
@@ -499,7 +500,7 @@ export default function Map() {
               handleHomeClick();
             }
           }}
-          opacity={isFromSearchPage && selectedMapCategory ? false : true}
+          opacity={true}
           isSearchMode={isFromSearchPage && selectedMapCategory ? true : false}
         />
         {!(isFromSearchPage && selectedMapCategory) && (
@@ -530,7 +531,7 @@ export default function Map() {
             activeTab={selectedMapCategory}
             onTabClick={handleMapCategoryChange}
             autoWidth={true}
-            margin="0.75rem"
+            margin="1.5rem"
             gap="0.25rem"
           />
         </S.CategoryTabsContainer>
