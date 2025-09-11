@@ -17,11 +17,6 @@ export default function Card({ index, image, label, name, description }: CardPro
   return (
     <S.Container>
       <S.Wrap index={index}>
-        <S.ImageBox>
-          <S.Image src={image} alt="made by" />
-        </S.ImageBox>
-        <S.HorizontalLine />
-        <StarIcon style={{ margin: '.1rem' }} />
         <S.TextWrap>
           <S.TitleWrap className="title-wrap">
             <S.Name>{name}</S.Name>
@@ -32,6 +27,12 @@ export default function Card({ index, image, label, name, description }: CardPro
             dangerouslySetInnerHTML={{ __html: description.replace(/\n/g, '<br/>') }}
           />
         </S.TextWrap>
+        <StarIcon style={{ margin: '.1rem' }} />
+        <S.HorizontalLine />
+        <S.Space />
+        <S.ImageBox>
+          <S.Image src={image} alt="made by" />
+        </S.ImageBox>
       </S.Wrap>
     </S.Container>
   );

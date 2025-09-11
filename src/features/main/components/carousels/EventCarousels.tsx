@@ -26,11 +26,11 @@ export default function EventCarousels({ events }: EventCarouselsProps) {
   const noEventsData: EventCardData[] = [
     {
       id: '1',
-      title: '진행 중인 이벤트가 없어요!',
+      title: '진행 중인 콘텐츠가 없어요!',
       startTime: '',
       endTime: '',
       location: '',
-      date: '곧 새로운 이벤트가 시작될 예정입니다',
+      date: '곧 새로운 콘텐츠가 시작될 예정입니다',
       noticeId: null, // 링크 없음
     },
   ];

@@ -17,12 +17,12 @@ export const Container = styled.div`
 export const Wrap = styled.div<{ index: number }>`
   display: flex;
   flex-direction: ${({ index }) => (index % 2 === 0 ? 'row' : 'row-reverse')};
-  text-align: ${({ index }) => (index % 2 === 0 ? 'right' : 'left')};
+  text-align: ${({ index }) => (index % 2 === 0 ? 'left' : 'right')};
   align-items: center;
   width: 100%;
 
   .title-wrap {
-    flex-direction: ${({ index }) => (index % 2 === 0 ? 'row-reverse' : 'row')};
+    flex-direction: ${({ index }) => (index % 2 === 0 ? 'row' : 'row-reverse')};
   }
 `;
 
@@ -36,7 +36,8 @@ export const ImageBox = styled.div`
   justify-content: flex-end;
   border: none;
   align-items: center;
-  margin: 0 0.6rem;
+
+  /* margin: 0 0.6rem; */
 `;
 
 export const Image = styled.img`
@@ -49,6 +50,10 @@ export const HorizontalLine = styled.div`
   width: 4.35rem;
   height: 1px;
   background-color: ${(props) => props.theme.colors.primary.violet};
+`;
+
+export const Space = styled.div`
+  width: 0.6rem;
 `;
 
 export const TextWrap = styled.div`

@@ -20,7 +20,6 @@ export const Image = styled.img`
 export const Image2 = styled.img`
   display: flex;
   width: 16.125rem;
-  height: 14rem;
 `;
 
 export const TextWrap = styled.div`
