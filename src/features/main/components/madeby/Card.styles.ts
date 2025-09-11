@@ -47,13 +47,13 @@ export const Image = styled.img`
 `;
 
 export const HorizontalLine = styled.div`
-  width: 4.35rem;
+  width: 4.5rem;
   height: 1px;
   background-color: ${(props) => props.theme.colors.primary.violet};
 `;
 
 export const Space = styled.div`
-  width: 0.6rem;
+  width: 0.8rem;
 `;
 
 export const TextWrap = styled.div`

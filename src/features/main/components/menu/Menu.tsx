@@ -79,7 +79,7 @@ export default function Menu() {
         <S.Frame>
           <ImageTextIconFrame
             image={Student}
-            title="제 43대 총학생회 [ NOTE ]"
+            title="제43대 총학생회 [ NOTE ]"
             description="인스타그램 바로가기"
             onClick={() => window.open(externalLinks.instagramStudent, '_blank')}
           />

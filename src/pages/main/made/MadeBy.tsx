@@ -59,7 +59,7 @@ export default function MadeBy() {
           return (
             <S.PartBox key={part}>
               <S.PartTitle>
-                <StarIcon />
+                <StarIcon style={{ width: '1rem', marginTop: '0.1rem' }} />
                 {part}
               </S.PartTitle>
               <S.PartCard>

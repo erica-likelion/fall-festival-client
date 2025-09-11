@@ -27,7 +27,7 @@ export default function Card({ index, image, label, name, description }: CardPro
             dangerouslySetInnerHTML={{ __html: description.replace(/\n/g, '<br/>') }}
           />
         </S.TextWrap>
-        <StarIcon style={{ margin: '.1rem' }} />
+        <StarIcon style={{ width: '1rem', margin: '.6rem' }} />
         <S.HorizontalLine />
         <S.Space />
         <S.ImageBox>
