@@ -93,9 +93,9 @@ export const Dot = styled.span<{ $active?: boolean }>`
 
 // Buttons
 const buttonBase = css`
-  min-height: 48px;
-  border-radius: 12px;
-  padding: 12px 16px;
+  min-height: 2rem;
+  border-radius: 10rem;
+  padding: 0.8rem 1rem;
   width: calc(100% - 32px);
   margin: 0 16px 16px;
   border: none;
@@ -105,7 +105,7 @@ export const PrimaryButton = styled.button`
   ${buttonBase};
   background: ${(p) => p.theme.colors.primary.violet};
   color: ${(p) => p.theme.colors.grayScale.white};
-  border-radius: 100px;
+  border-radius: 10rem;
   ${(p) => p.theme.fonts.body.medium500};
 `;
 
@@ -113,7 +113,7 @@ export const SecondaryButton = styled.button`
   ${buttonBase};
   background: ${(p) => p.theme.colors.grayScale.gy100};
   color: ${(p) => p.theme.colors.grayScale.gy800};
-  border-radius: 100px;
+  border-radius: 10rem;
   ${(p) => p.theme.fonts.body.medium500};
 `;
 
@@ -130,7 +130,7 @@ export const ButtonRow = styled.div`
   flex-direction: column;
   gap: 12px;
   width: 100%;
-  padding: 0 16px 16px;
+  padding: 0.8rem 1rem;
 
   & > button {
     margin: 0;
@@ -146,14 +146,13 @@ export const FramePreview = styled.div`
   padding: 24px 16px 8px;
   max-height: 70vh;
   overflow: visible;
-  min-height: 200px;
+  min-height: 100px;
 `;
 
 export const PolaroidCard = styled.div<{ $shaking?: boolean }>`
   position: relative;
   background: ${(p) => p.theme.colors.grayScale.white};
   border: 1px solid ${(p) => p.theme.colors.grayScale.gy200};
-  border-radius: 8px;
   box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
   transition: transform 0.3s ease;
 
@@ -327,8 +326,8 @@ export const PermissionButton = styled.button`
   background-color: ${(p) => p.theme.colors.primary.violet};
   color: ${(p) => p.theme.colors.grayScale.white};
   border: none;
-  padding: 15px 30px;
-  border-radius: 25px;
+  padding: 0.8rem 1rem;
+  border-radius: 10rem;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -357,28 +356,4 @@ export const ErrorMessage = styled.div`
   text-align: center;
   ${(p) => p.theme.fonts.body.small400};
   border: 1px solid rgb(255 107 107 / 20%);
-`;
-
-export const SuccessMessage = styled.div`
-  background: rgb(146 71 171 / 10%);
-  color: ${(p) => p.theme.colors.primary.violet};
-  padding: 15px;
-  border-radius: 10px;
-  margin: 16px;
-  text-align: center;
-  ${(p) => p.theme.fonts.body.small400};
-  border: 1px solid rgb(146 71 171 / 30%);
-  animation: fade-in 0.5s ease;
-
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 `;

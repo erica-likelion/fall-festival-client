@@ -51,6 +51,7 @@ export function useShakeDevelop() {
   const [shakeCount, setShakeCount] = useState(0);
   const [isShaking, setIsShaking] = useState(false);
   const [permissionGranted, setPermissionGranted] = useState(false);
+  const [permissionDenied, setPermissionDenied] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const maxShakes = SHAKE_CONFIG.maxShakes;
@@ -105,14 +106,17 @@ export function useShakeDevelop() {
         const permission = await DeviceMotionEventTyped.requestPermission();
         const granted = permission === 'granted';
         setPermissionGranted(granted);
+        setPermissionDenied(!granted);
         return granted;
       } else {
         setPermissionGranted(true);
+        setPermissionDenied(false);
         return true;
       }
     } catch (error) {
       console.error('Permission error:', error);
       setError('권한 요청 실패');
+      setPermissionDenied(true);
       return false;
     }
   };
@@ -125,13 +129,18 @@ export function useShakeDevelop() {
     onCompleteRef.current = onComplete || null;
 
     // 권한 체크/요청
-    if (!permissionGranted) {
+    if (!permissionGranted && !permissionDenied) {
       const granted = await requestPermission();
-      if (!granted) return;
+      // 권한이 허용된 경우만 devicemotion 이벤트 리스너 등록
+      if (granted) {
+        window.addEventListener('devicemotion', detectShake);
+      }
+      // 권한이 거절되어도 터치 기반으로 진행 (별도 처리 없음)
+    } else if (permissionGranted) {
+      // 이미 권한이 있는 경우 devicemotion 이벤트 리스너 등록
+      window.addEventListener('devicemotion', detectShake);
     }
-
-    // 이벤트 리스너 등록
-    window.addEventListener('devicemotion', detectShake);
+    // permissionDenied가 true인 경우, 터치만으로 진행 (별도 이벤트 리스너 등록 없음)
   };
 
   // 중지
@@ -166,6 +175,7 @@ export function useShakeDevelop() {
     isShaking,
     isCompleted,
     permissionGranted,
+    permissionDenied,
     error,
     requestPermission,
     startShakeDevelop,

@@ -80,6 +80,7 @@ export default function Polaroid() {
     opacity: shakeOpacity,
     isShaking,
     permissionGranted,
+    permissionDenied,
     error: shakeError,
     startShakeDevelop,
     stopShakeDevelop,
@@ -167,14 +168,19 @@ export default function Polaroid() {
 
   // 프레임 선택 완료 -> 현상 시작
   const handleStartDevelop = () => {
-    console.log('Starting develop, permission granted:', permissionGranted);
+    console.log(
+      'Starting develop, permission granted:',
+      permissionGranted,
+      'permission denied:',
+      permissionDenied,
+    );
     setStep('develop');
 
     // 흔들기 센서가 지원되는 경우에는 흔들기만 허용 (기본 애니메이션 사용 안함)
     if (window.DeviceMotionEvent) {
-      // 권한이 있으면 바로 흔들기 시작, 없으면 권한 요청 UI 표시
-      if (permissionGranted) {
-        console.log('Permission already granted, starting shake develop immediately');
+      // 권한이 있거나 이미 거절된 경우 흔들기 시작
+      if (permissionGranted || permissionDenied) {
+        console.log('Starting shake develop immediately');
         startShakeDevelop(() => setStep('done'));
       } else {
         console.log('❌ No permission yet, will show permission button');
@@ -450,7 +456,7 @@ export default function Polaroid() {
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                     opacity:
-                      window.DeviceMotionEvent && permissionGranted
+                      window.DeviceMotionEvent && (permissionGranted || permissionDenied)
                         ? shakeOpacity
                         : window.DeviceMotionEvent
                           ? 0
@@ -509,7 +515,7 @@ export default function Polaroid() {
             )}
 
             {/* 흔들기 지원 && 권한 없음 */}
-            {window.DeviceMotionEvent && !permissionGranted && (
+            {window.DeviceMotionEvent && !permissionGranted && !permissionDenied && (
               <S.ShakeInstructions>
                 <S.ShakeText>
                   멋진 사진이 완성되었어요!
@@ -521,6 +527,15 @@ export default function Polaroid() {
                 </S.PermissionButton>
                 {shakeError && <S.ErrorMessage>{shakeError}</S.ErrorMessage>}
                 <S.SubtleText>원활한 측정을 위해 가속도 센서 권한을 허용해 주세요</S.SubtleText>
+              </S.ShakeInstructions>
+            )}
+
+            {/* 흔들기 지원 && 권한 거절됨 - 터치로 현상 */}
+            {window.DeviceMotionEvent && permissionDenied && (
+              <S.ShakeInstructions>
+                <S.ShakeText>사진을 터치해서 현상해 주세요</S.ShakeText>
+                <S.ShakeCounter>{shakeProgressText}</S.ShakeCounter>
+                <S.SubtleText>센서 권한이 없어도 터치로 현상할 수 있어요</S.SubtleText>
               </S.ShakeInstructions>
             )}
 
