@@ -3,14 +3,14 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.75rem; /* Adjust gap as needed */
+  gap: 0.75rem;
   width: 21rem;
 `;
 
 export const NoticeItem = styled.div`
-  display: flex; /* Added flex display */
-  align-items: center; /* Align items vertically */
-  gap: 1rem; /* Gap between image and text */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   background-color: ${(props) => props.theme.colors.grayScale.white};
   border-radius: 16px;
   padding: 0.7rem 1rem 0.7rem 0.7rem;
@@ -24,28 +24,29 @@ export const ImageThumbnail = styled.img`
   aspect-ratio: 1/1;
   border-radius: 12px;
   background-color: transparent;
-  object-fit: cover; /* Ensure image covers the area */
+  object-fit: cover;
 `;
 
 export const TextContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  flex-grow: 1; /* Allow text content to take available space */
+  flex-grow: 1;
+  min-width: 0;
 `;
 
 export const NoticeTitle = styled.p`
   ${(props) => props.theme.fonts.body.medium500};
   color: ${(props) => props.theme.colors.grayScale.black};
   margin-bottom: 0.25rem;
-  line-height: 130%;
+  line-height: 110%;
 `;
 
 export const NoticeContent = styled.p`
-  ${(props) => props.theme.fonts.body.small400};
+  ${(props) => props.theme.fonts.body.xsmall500};
   color: ${(props) => props.theme.colors.grayScale.gy700};
-  white-space: nowrap; /* Prevent text from wrapping */
-  overflow: hidden; /* Hide overflow text */
-  text-overflow: ellipsis; /* Add ellipsis for overflow */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 // 로딩, 에러, 빈 목록 메시지용 스타일

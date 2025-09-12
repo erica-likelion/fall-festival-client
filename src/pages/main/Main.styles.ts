@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import logo from '@/assets/images/espero-logo.png';
+import logo from '@/assets/images/espero-logo.webp';
 
 export const Layout = styled.div`
   background: linear-gradient(180deg, #7e419a 10%, transparent 100%);

@@ -11,15 +11,6 @@ interface Notice {
   img: string[];
 }
 
-// Helper function for text processing
-const processContent = (content: string, maxLength: number = 25): string => {
-  const singleLineContent = content.replace(/(\r\n|\n|\r)/gm, ' '); // Replace line breaks with spaces
-  if (singleLineContent.length > maxLength) {
-    return singleLineContent.substring(0, maxLength) + '...';
-  }
-  return singleLineContent;
-};
-
 // API 응답 데이터를 컴포넌트에서 사용하는 형식으로 변환
 const mapApiNoticeToUi = (apiNotice: NoticeItem): Notice => {
   return {
@@ -86,7 +77,7 @@ const MainNoticeList: React.FC<object> = () => {
             )}
             <S.TextContentWrapper>
               <S.NoticeTitle>{notice.title}</S.NoticeTitle>
-              <S.NoticeContent>{processContent(notice.body)}</S.NoticeContent>
+              <S.NoticeContent>{notice.body}</S.NoticeContent>
             </S.TextContentWrapper>
           </S.NoticeItem>
         ))

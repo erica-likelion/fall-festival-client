@@ -1,6 +1,5 @@
 import { NoticeTextProps } from './Notice.types';
 import * as S from './NoticeText.styles';
-import { truncateText } from '@/utils/truncateText';
 
 /**
  * 공지사항 텍스트 컴포넌트
@@ -11,15 +10,13 @@ import { truncateText } from '@/utils/truncateText';
  */
 
 export default function NoticeText({ image, title, body }: NoticeTextProps) {
-  const truncatedBody = truncateText(body, 40);
-
   return (
     <>
       <S.Container>
         <S.Image src={image} alt="notice" loading="lazy" />
         <S.TextWrapper>
           <S.Title>{title}</S.Title>
-          <S.body>{truncatedBody}</S.body>
+          <S.body>{body}</S.body>
         </S.TextWrapper>
       </S.Container>
     </>

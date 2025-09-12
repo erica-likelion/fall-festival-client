@@ -6,7 +6,7 @@ import { externalLinks } from '@/constants/main/ExternalLink';
 
 // import Form from '@/assets/icons/form_logo.svg';
 
-import FortuneBannerImg from '@/assets/images/fortune-banner.webp';
+import FortuneBannerImg from '@/assets/images/fortune-banner-sm.webp';
 
 // import Make from '@/assets/icons/lionlove_logo.svg';
 // import Lion from '@/assets/icons/lion_logo.svg';

@@ -21,6 +21,7 @@ export const Container = styled.div`
     width: 100%;
     height: 100%;
     background-image: url(${EventBannerBg});
+    background-color: #eee3fd;
     background-size: cover;
     opacity: 0.8; /* 이미지 투명도 조절 */
     border-radius: 1rem;
