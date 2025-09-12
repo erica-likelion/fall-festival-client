@@ -50,7 +50,7 @@ export default function Menu() {
           <ImageBannerFrame
             image={FortuneBannerImg}
             onClick={() => navigate('/main/fortune/onboarding')}
-            backgroundColor="lightgray 50%"
+            backgroundColor="rgba(250, 250, 250, 0.50)"
           />
         </S.Frame>
         <S.TitleWrapper>

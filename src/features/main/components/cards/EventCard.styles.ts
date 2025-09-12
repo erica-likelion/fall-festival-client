@@ -6,13 +6,26 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-image: url(${EventBannerBg});
   background-size: cover;
   box-shadow: 0 0 10px 0 #dbc2e3;
   border-radius: 1rem;
   margin: 0.8rem auto;
-  height: 11rem;
-  max-width: 21rem; /* 모바일에서 너무 커지는 것 방지 */
+  height: 10rem;
+  max-width: 21rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(${EventBannerBg});
+    background-size: cover;
+    opacity: 0.8; /* 이미지 투명도 조절 */
+    border-radius: 1rem;
+    z-index: -1; /* 콘텐츠 뒤로 보내기 */
+  }
 `;
 
 export const HeaderSection = styled.div`
@@ -43,7 +56,6 @@ export const EventTitle = styled.p`
   ${(props) => props.theme.fonts.header.h3}
   text-align: center;
   color: ${(props) => props.theme.colors.secondary.vl900};
-  margin-bottom: 5px;
 `;
 
 export const TextContainer = styled.div`
@@ -54,7 +66,7 @@ export const TextContainer = styled.div`
   gap: 0.5rem;
   align-self: stretch;
   color: ${(props) => props.theme.colors.secondary.vl800};
-  padding: 0.5rem 0;
+  padding: 0.5rem 0 0;
 `;
 
 export const TextWrapper = styled.div`
