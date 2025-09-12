@@ -466,8 +466,20 @@ export default function Map() {
       <S.ContentContainer>
         <S.TopBarBackground $isFromSearch={!!(isFromSearchPage && selectedMapCategory)} />
         <NavBar
-          isBack={isFromSearchPage && selectedMapCategory ? true : false}
-          hideLeft={isFromSearchPage && selectedMapCategory ? false : true}
+          isBack={
+            (isFromSearchPage && selectedMapCategory) ||
+            location.state?.fromType === 'booth-detail' ||
+            location.state?.fromType === 'search'
+              ? true
+              : false
+          }
+          hideLeft={
+            (isFromSearchPage && selectedMapCategory) ||
+            location.state?.fromType === 'booth-detail' ||
+            location.state?.fromType === 'search'
+              ? false
+              : true
+          }
           title={
             isFromSearchPage && selectedMapCategory
               ? singleItemMode
@@ -477,6 +489,16 @@ export default function Map() {
           }
           isClose={true} // 항상 X 버튼 표시
           backPath={isFromSearchPage && selectedMapCategory ? '/map/search' : undefined}
+          onBackClick={() => {
+            // 주점 상세 페이지에서 온 경우: 주점 상세로 돌아가기
+            if (location.state?.fromType === 'booth-detail' && location.state?.from) {
+              navigate(location.state.from);
+            }
+            // 검색 페이지에서 온 경우: 검색 페이지로 돌아가기
+            else if (location.state?.fromType === 'search' && location.state?.from) {
+              navigate(location.state.from);
+            }
+          }}
           onCloseClick={() => {
             // 주점 상세 페이지에서 온 경우: 주점 상세로 돌아가기
             if (location.state?.fromType === 'booth-detail' && location.state?.from) {

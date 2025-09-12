@@ -192,6 +192,8 @@ export default function MapSearch() {
         state: {
           selectedCategory: item.text,
           showBottomSheet: true,
+          from: '/map/search',
+          fromType: 'search',
         },
       });
     } else {
@@ -199,11 +201,21 @@ export default function MapSearch() {
       if (item.id.startsWith('booth-')) {
         // 주점 클릭 시
         const itemId = item.id.replace('booth-', '');
-        navigate(`/map/${itemId}`);
+        navigate(`/map/${itemId}`, {
+          state: {
+            from: '/map/search',
+            fromType: 'search',
+          },
+        });
       } else {
         // 일반 위치 클릭 시
         const itemId = item.id.replace('location-', '');
-        navigate(`/map/${itemId}`);
+        navigate(`/map/${itemId}`, {
+          state: {
+            from: '/map/search',
+            fromType: 'search',
+          },
+        });
       }
     }
   };
