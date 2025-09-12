@@ -201,12 +201,11 @@ export const LOCATION_DATA: Record<CATEGORIES, LocationData[]> = {
       closeDay: [],
     },
   ],
-  // 주류 구매 위치
-  '주류 구매 위치': [
+  '주류 구매': [
     {
       lat: 37.295611,
       lng: 126.835208,
-      name: '주류 구매 위치',
+      name: '주류 구매',
 
       closeDay: [],
     },

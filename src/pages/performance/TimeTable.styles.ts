@@ -46,6 +46,7 @@ export const TimeWrap = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  justify-content: center;
   position: relative;
   flex: 1;
   margin-top: 8.625rem;
@@ -58,7 +59,6 @@ export const TimeAndBarContainer = styled.div`
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-  margin-left: 1.25rem;
 `;
 
 export const TimeContainer = styled.div`

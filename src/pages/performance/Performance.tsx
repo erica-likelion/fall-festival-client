@@ -82,6 +82,7 @@ export default function Performance() {
       navigate('/performance/detail', {
         state: {
           ...artistData,
+          day: selectedDay, // API에서 받은 실제 일차 정보 전달
           selectedDay,
         },
       });

@@ -354,6 +354,12 @@ export function useKakaoMap(
       });
       customOverlaysRef.current = [];
 
+      // 기존의 모든 다각형을 제거
+      customPolygonsRef.current.forEach((polygon) => {
+        polygon.setMap(null);
+      });
+      customPolygonsRef.current = [];
+
       // 먼저 모든 마커들을 생성하고 저장
       const overlays: { overlay: kakao.maps.CustomOverlay; isSelected: boolean }[] = [];
 
@@ -461,6 +467,12 @@ export function useKakaoMap(
       overlay.setMap(null);
     });
     customOverlaysRef.current = [];
+
+    // 이전 다각형 제거
+    customPolygonsRef.current.forEach((polygon) => {
+      polygon.setMap(null);
+    });
+    customPolygonsRef.current = [];
 
     // 새 마커 추가
     const overlays: kakao.maps.CustomOverlay[] = [];

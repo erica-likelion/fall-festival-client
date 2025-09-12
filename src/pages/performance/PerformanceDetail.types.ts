@@ -6,6 +6,7 @@ export type PerformanceDetailsProps = {
   time: string; // 공연 시간 (ex: "21:00~22:00")
   description: string; // 가수 설명
   songList: Song[]; // 대표곡 리스트
+  day: string; // 실제 공연 일차 (API에서 받은 데이터)
   selectedDay?: string; // 선택된 일차 (뒤로가기용)
 };
 

@@ -23,7 +23,7 @@ type MarkerIconMap = {
 // 카테고리별 마커 아이콘 매핑
 export const markerIcons: MarkerIconMap = {
   주점: MarkerPub,
-  '주류 구매 위치': MarkerLiquorStore,
+  '주류 구매': MarkerLiquorStore,
   플리마켓: MarkerFleaMarket,
   프로모션: MarkerPromotion,
   콘텐츠: MarkerHospital,

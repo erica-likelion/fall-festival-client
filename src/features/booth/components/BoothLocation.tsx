@@ -58,7 +58,7 @@ export default function BoothLocation({
     // singleBoothData가 있을 때만 customMapData 제공, 없으면 빈 객체 제공
     {
       주점: singleBoothData ? [singleBoothData] : [],
-      '주류 구매 위치': [],
+      '주류 구매': [],
       플리마켓: [],
       프로모션: [],
       콘텐츠: [],

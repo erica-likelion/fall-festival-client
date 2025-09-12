@@ -71,7 +71,7 @@ export default function Map() {
       셔틀콕: '셔틀콕',
       공연장: '공연장',
       흡연실: '흡연구역',
-      '주류 구매': '주류 구매 위치',
+      '주류 구매': '주류 구매',
       플리마켓: '플리마켓',
     }),
     [],
@@ -89,7 +89,7 @@ export default function Map() {
       공연장: '공연장',
       푸드트럭: '푸드트럭',
       흡연실: '흡연구역',
-      '주류 구매': '주류 구매 위치',
+      '주류 구매': '주류 구매',
       플리마켓: '플리마켓',
     }),
     [],
@@ -123,7 +123,7 @@ export default function Map() {
     if (isApiLoading || booths.length === 0 || markers.length === 0) {
       return {
         주점: [],
-        '주류 구매 위치': [],
+        '주류 구매': [],
         플리마켓: [],
         프로모션: [],
         콘텐츠: [],
@@ -164,9 +164,7 @@ export default function Map() {
     return {
       // 모든 카테고리를 API 데이터로만 구성 (하드코딩된 MapData 제거)
       주점: boothApiData, // Booth API 데이터 사용
-      '주류 구매 위치': apiMapData.filter(
-        (item: MapDataItem) => item.subtitle === '주류 구매 위치',
-      ),
+      '주류 구매': apiMapData.filter((item: MapDataItem) => item.subtitle === '주류 구매'),
       플리마켓: apiMapData.filter((item: MapDataItem) => item.subtitle === '플리마켓'),
       프로모션: apiMapData.filter((item: MapDataItem) => item.subtitle === '프로모션'),
       콘텐츠: apiMapData.filter((item: MapDataItem) => item.subtitle === '콘텐츠'),

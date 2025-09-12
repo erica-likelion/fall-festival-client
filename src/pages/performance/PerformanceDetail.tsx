@@ -19,6 +19,7 @@ import { NavBar } from '@/components/nav-bar/NavBar';
  * - time: 공연 시간 (예: "21:00~22:00")
  * - description: 가수 설명
  * - songList: 대표곡 리스트 (이미지, 곡명, 외부 URL 포함)
+ * - day: 실제 공연 일차 (API에서 받은 데이터)
  *
  * @returns JSX.Element
  */
@@ -45,22 +46,12 @@ export default function PerformanceDetail() {
     );
   }
 
-  const { backgroundUrl, singer, time, songList, description } = state;
+  const { backgroundUrl, singer, time, songList, description, day } = state;
   // selectedDay는 Performance 페이지에서 뒤로가기 시 복원용으로 사용됨 (현재는 사용하지 않음)
 
   const handleExit = () => {
     navigate('/main');
   };
-
-  // 일차 정보 추출 (예: "20:00~20:20"에서 시간을 보고 일차 판단)
-  const getDayInfo = (time: string) => {
-    const hour = parseInt(time.split(':')[0]);
-    if (hour < 18) return '3일차';
-    if (hour < 21) return '2일차';
-    return '1일차';
-  };
-
-  const dayInfo = getDayInfo(time);
 
   return (
     <S.DetailsContainer>
@@ -89,7 +80,7 @@ export default function PerformanceDetail() {
             <S.ArtistInfoBox>
               <S.InfoItem>
                 <CalendarIcon width="1rem" height="1rem" />
-                <S.InfoText>{dayInfo}</S.InfoText>
+                <S.InfoText>{day}</S.InfoText>
               </S.InfoItem>
               <S.InfoItem>
                 <TimePerformanceIcon width="1rem" height="1rem" />
