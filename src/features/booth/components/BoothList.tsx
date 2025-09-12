@@ -8,6 +8,7 @@ import { Fragment } from 'react/jsx-runtime';
 import { useState } from 'react';
 import { useBooths } from '@/hooks/useBooth';
 import { useBoothNotificationStore } from '@/stores/useBoothNotificationStore';
+import { CATEGORY_NOTIFICATIONS } from '@/constants/map/CategoryNotifications';
 
 interface BoothListProps {
   showFavoritesOnly?: boolean;
@@ -60,16 +61,19 @@ export default function BoothList({ showFavoritesOnly = false, hideTabs = false 
     return null;
   }
 
+  const boothNotification = CATEGORY_NOTIFICATIONS['주점'];
+
   const handleNotificationClick = () => {
-    // TODO: 나중에 주점 공지사항 페이지로 이동
-    console.log('주점 공지사항 페이지로 이동');
+    if (boothNotification?.path) {
+      navigate(boothNotification.path);
+    }
   };
 
   return (
     <S.Container>
-      {!isBoothNotificationClosed && (
+      {!isBoothNotificationClosed && boothNotification && (
         <Notification
-          title="[공지] 미취학 아동 입장 제한"
+          title={boothNotification.title}
           width="100%"
           onClick={handleNotificationClick}
           onClose={closeBoothNotification}

@@ -69,6 +69,6 @@ export const allMembers = [
     image: be_3 as string,
     label: 'PM',
     name: '임진수',
-    description: '버스카드 안 찍고 버스타기',
+    description: '피 땀 눈물\n허리 손목 뒷목 등등',
   },
 ];
