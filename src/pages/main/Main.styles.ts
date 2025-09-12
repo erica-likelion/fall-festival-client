@@ -3,22 +3,21 @@ import { motion } from 'framer-motion';
 import logo from '@/assets/images/espero-logo.png';
 
 export const Layout = styled.div`
-  background: linear-gradient(180deg, #7e419a 35%, #7e419aca 45%, transparent 90%);
+  background: linear-gradient(180deg, #7e419a 10%, transparent 100%);
   width: 100%;
   height: 50rem;
   position: absolute;
 `;
 
 export const TitleBar = styled.div`
+  position: fixed;
   width: 100%;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: 1.3rem;
+  background-color: ${(props) => props.theme.colors.primary.violet};
+  padding: 1.2rem;
   top: 0;
   left: 0;
-  background: transparent;
   z-index: 10;
-  box-shadow: 0 0 15px 0 #7e419a55;
+  box-shadow: 0 0 0.5rem 0 ${(props) => props.theme.colors.primary.violet};
 `;
 
 export const MainLogo = styled.div`
