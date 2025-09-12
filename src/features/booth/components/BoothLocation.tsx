@@ -90,7 +90,16 @@ export default function BoothLocation({
       <S.Title>위치</S.Title>
       <S.Locate>{boothLocation.replace('.', '-')}</S.Locate>
       <S.Map ref={mapRef}>
-        <S.Button onClick={() => navigate(`/map/${id}`, { replace: true })}>
+        <S.Button
+          onClick={() =>
+            navigate(`/map/${id}`, {
+              state: {
+                from: `/booth/${id}`,
+                fromType: 'booth-detail',
+              },
+            })
+          }
+        >
           <S.ButtonText>지도에서 보기</S.ButtonText>
           <RightIcon width="0.55rem" height="0.55rem" />
         </S.Button>

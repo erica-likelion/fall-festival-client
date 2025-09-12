@@ -122,4 +122,32 @@ createRoot(document.getElementById('root')!).render(
 window.addEventListener('DOMContentLoaded', () => {
   const splash = document.getElementById('splash-screen');
   if (splash) splash.remove();
+
+  // 전역 이미지 lazy loading 적용
+  document.querySelectorAll('img').forEach((img) => {
+    if (!img.hasAttribute('loading')) {
+      img.setAttribute('loading', 'lazy');
+    }
+  });
 });
+
+// 새로 추가되는 이미지도 자동 처리
+const imageObserver = new MutationObserver((mutations) => {
+  mutations.forEach((mutation) => {
+    if (mutation.type === 'childList') {
+      mutation.addedNodes.forEach((node) => {
+        if (node.nodeType === Node.ELEMENT_NODE) {
+          const element = node as Element;
+          const images = element.tagName === 'IMG' ? [element] : element.querySelectorAll('img');
+          images.forEach((img) => {
+            if (!img.hasAttribute('loading')) {
+              img.setAttribute('loading', 'lazy');
+            }
+          });
+        }
+      });
+    }
+  });
+});
+
+imageObserver.observe(document.body, { childList: true, subtree: true });

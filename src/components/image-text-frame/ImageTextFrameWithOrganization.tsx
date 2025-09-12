@@ -33,10 +33,11 @@ export default function ImageTextFrameWithOrganization({
   onClick,
   width,
   activeStyle = false,
+  boothId,
 }: ImageTextFrameWithOrganizationProps) {
   return (
     <S.Container onClick={onClick} $width={width} $activeStyle={activeStyle}>
-      <S.Image src={image} alt="" />
+      <S.Image src={image} alt="" $boothId={boothId} />
       <S.ContentsWrap>
         <S.Title>{title}</S.Title>
         <S.Organization>{organization}</S.Organization>

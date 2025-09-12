@@ -15,13 +15,14 @@ export const ImageBtnFrame = styled.div`
   justify-content: space-between;
 `;
 
-export const Image = styled.img`
+export const Image = styled.img.withConfig({
+  shouldForwardProp: (prop) => prop !== '$boothId',
+})<{ $boothId?: number }>`
   width: 6.25rem;
   height: 6.25rem;
-  background: ${(props) => props.theme.colors.grayScale.gy400};
   border-radius: 12px;
-  border: 1px solid ${(props) => props.theme.colors.grayScale.gy100};
   margin-top: 1.2rem;
+  ${({ $boothId }) => $boothId === 1 && 'object-fit: cover;'}
 `;
 
 export const TextSection = styled.div`

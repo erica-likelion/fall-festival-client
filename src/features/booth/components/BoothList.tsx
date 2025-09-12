@@ -113,6 +113,7 @@ export default function BoothList({ showFavoritesOnly = false, hideTabs = false 
                       title={booth.pubName}
                       organization={booth.affiliation}
                       canPickup={booth.takeout}
+                      boothId={booth.id}
                       onClick={() =>
                         navigate(`/booth/${booth.id}`, {
                           state: { from: location.pathname + location.search },

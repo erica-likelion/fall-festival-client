@@ -19,7 +19,7 @@ export default function BoothInfo({ booth }: BoothInfoProps) {
   return (
     <S.Container>
       <S.ImageBtnFrame>
-        <S.Image src={booth.profileImage} />
+        <S.Image src={booth.profileImage} $boothId={booth.id} />
         <FavoriteButton
           id={booth.id}
           isFavorited={isBoothFavorited}

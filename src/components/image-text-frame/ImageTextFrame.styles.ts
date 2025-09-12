@@ -39,13 +39,15 @@ export const MenuContainer = styled.div<{ $width?: string }>`
   background-color: ${(props) => props.theme.colors.grayScale.white};
 `;
 
-export const Image = styled.img`
+export const Image = styled.img.withConfig({
+  shouldForwardProp: (prop) => prop !== '$boothId',
+})<{ $boothId?: number }>`
   width: 4.5rem;
   height: 4.5rem;
   flex-shrink: 0;
   aspect-ratio: 1/1;
   border-radius: 0.375rem;
-  background-color: ${(props) => props.theme.colors.grayScale.gy600};
+  ${({ $boothId }) => $boothId === 1 && 'object-fit: cover;'}
 `;
 
 export const ContentsWrap = styled.div`

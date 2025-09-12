@@ -12,8 +12,8 @@ export const MapItemCardContainer = styled.div`
 `;
 
 export const ItemImage = styled.img`
-  width: 4.5rem; /* 72px */
-  height: 4.5rem; /* 72px */
+  width: 4.5rem;
+  height: 4.5rem;
   flex-shrink: 0;
   border-radius: 0.45rem;
   object-fit: cover;

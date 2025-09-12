@@ -21,6 +21,9 @@ export type ImageTextFrameWithOrganizationProps = {
 
   /** 활성화 스타일 여부 */
   activeStyle?: boolean;
+
+  /** 부스 ID (이미지 스타일 결정용) */
+  boothId?: number;
 };
 
 export type ImageTextFrameWithTimeProps = {

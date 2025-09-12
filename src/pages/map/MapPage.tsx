@@ -478,7 +478,10 @@ export default function Map() {
           isClose={true} // 항상 X 버튼 표시
           backPath={isFromSearchPage && selectedMapCategory ? '/map/search' : undefined}
           onCloseClick={() => {
-            if (isFromSearchPage && selectedMapCategory) {
+            // 주점 상세 페이지에서 온 경우: 주점 상세로 돌아가기
+            if (location.state?.fromType === 'booth-detail' && location.state?.from) {
+              navigate(location.state.from);
+            } else if (isFromSearchPage && selectedMapCategory) {
               // 검색 페이지에서 온 경우: 검색 상태 초기화 후 /map으로 이동
               setSelectedMapCategory(() => '');
               setSelectedCategory(() => null);
