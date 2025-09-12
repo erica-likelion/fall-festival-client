@@ -3,7 +3,6 @@
  */
 export interface EventCardData {
   id: string;
-  // tags: { color: string; text: string }[];
   title: string;
   startTime: string;
   endTime: string;

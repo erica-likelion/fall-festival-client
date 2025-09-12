@@ -55,7 +55,22 @@ export default function Main() {
           </S.TitleWrapper>
           <S.CarouselsBox>
             {loading ? (
-              <S.LoadingText>이벤트 정보를 불러오는 중...</S.LoadingText>
+              <>
+                {/* <S.LoadingText>이벤트 정보를 불러오는 중...</S.LoadingText> */}
+                <EventCarousels
+                  events={[
+                    {
+                      id: 'loading',
+                      title: '불러오는 중...',
+                      startTime: '',
+                      endTime: '',
+                      location: '',
+                      date: '',
+                      noticeId: null,
+                    },
+                  ]}
+                />
+              </>
             ) : error ? (
               <S.ErrorText>{error}</S.ErrorText>
             ) : (

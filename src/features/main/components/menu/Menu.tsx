@@ -3,14 +3,22 @@ import * as S from './Menu.styles';
 import { ImageTextIconFrame } from '@/components/image-text-icon-frame';
 import { ImageBannerFrame } from '@/components/image-banner-frame';
 import { externalLinks } from '@/constants/main/ExternalLink';
-import Student from '@/assets/images/menu/ericanote.webp';
-import Club from '@/assets/images/menu/clubassoc.webp';
-import Form from '@/assets/icons/form_logo.svg';
-// import Fortune from '@/assets/icons/pixel_moon.svg';
+
+// import Form from '@/assets/icons/form_logo.svg';
+
 import FortuneBannerImg from '@/assets/images/fortune-banner.webp';
 
-import Make from '@/assets/icons/lionlove_logo.svg';
-import Lion from '@/assets/icons/lion_logo.svg';
+// import Make from '@/assets/icons/lionlove_logo.svg';
+// import Lion from '@/assets/icons/lion_logo.svg';
+
+import Link from '@/assets/images/menu/link.webp';
+import Faq from '@/assets/images/menu/faq.webp';
+import Form from '@/assets/images/menu/form.webp';
+import Made from '@/assets/images/menu/made.webp';
+
+import Lion from '@/assets/images/menu/lion.webp';
+import Student from '@/assets/images/menu/ericanote.webp';
+import Club from '@/assets/images/menu/clubassoc.webp';
 
 import MainNoticeList from '@/features/main/components/notice/MainNoticeList';
 import Right from '@/assets/icons/right-arrow.svg?react';
@@ -42,7 +50,7 @@ export default function Menu() {
           <ImageBannerFrame
             image={FortuneBannerImg}
             onClick={() => navigate('/main/fortune/onboarding')}
-            backgroundColor="rgba(250, 250, 250, 0.50)"
+            backgroundColor="lightgray 50%"
           />
         </S.Frame>
         <S.TitleWrapper>
@@ -60,25 +68,27 @@ export default function Menu() {
         <S.SubTitle aria-label="문의사항 및 후기">문의사항 및 후기</S.SubTitle>
         <S.Frame>
           <ImageTextIconFrame
+            image={Link}
             title="축제 문의 남기기"
             description="축기단 링크트리로 이동"
             onClick={() => openExternalLink(externalLinks.linkTree)}
           />
           <ImageTextIconFrame
+            image={Faq}
             title="축제 FAQ"
             description="자주 묻는 질문"
             onClick={() => navigate('/main/faq')}
           />
           <ImageTextIconFrame
             image={Form}
-            title="축제 웹앱 사용후기"
-            description="구글폼 링크로 이동"
+            title="축제 웹앱 사용후기 남기러 가기"
+            description="이번 축제 웹앱 어떠셨나요?"
             onClick={() => openExternalLink(externalLinks.googleForm)}
           />
           <ImageTextIconFrame
-            image={Make}
+            image={Made}
             title="만든 이들"
-            description="멋쟁이사자처럼 운영진 제작 후기"
+            description="멋쟁이사자처럼 아기사자들의 제작 후기"
             onClick={() => navigate('/main/about')}
           />
         </S.Frame>
