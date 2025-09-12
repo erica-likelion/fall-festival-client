@@ -41,14 +41,19 @@ export default function EventCarousels({ events }: EventCarouselsProps) {
   // 아이템 개수에 상관없이 일관된 설정 적용
   const settings = {
     dots: false,
-    infinite: false,
-    speed: 500,
+    infinite: true,
+    speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
     centerMode: false,
     variableWidth: false,
     initialSlide: 0,
+
+    autoplay: true,
+    autoplaySpeed: 8000,
+    pauseOnFocus: true,
+    pauseOnHover: true,
 
     beforeChange: () => {
       isSwipingRef.current = true;

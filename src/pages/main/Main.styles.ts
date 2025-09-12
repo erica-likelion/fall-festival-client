@@ -16,7 +16,7 @@ export const TitleBar = styled.div`
   padding: 1.2rem;
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 999;
   box-shadow: 0 0 0.5rem 0 ${(props) => props.theme.colors.primary.violet};
 `;
 
