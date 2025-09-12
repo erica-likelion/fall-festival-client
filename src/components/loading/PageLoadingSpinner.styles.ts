@@ -6,13 +6,15 @@ export const spin = keyframes`
 `;
 
 export const LoadingContainer = styled.div`
+  position: fixed;
+  inset: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   background-color: ${({ theme }) => theme.colors.grayScale.white};
   color: ${({ theme }) => theme.colors.primary.violet};
+  z-index: 9999;
 `;
 
 export const LoadingSpinner = styled.div`

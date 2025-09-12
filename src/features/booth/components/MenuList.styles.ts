@@ -35,3 +35,18 @@ export const HorizontalLine = styled.div`
   background-color: ${(props) => props.theme.colors.grayScale.gy300};
   margin: 36px 0;
 `;
+
+export const LoadingMessage = styled.div`
+  text-align: center;
+  padding: 2rem;
+  color: ${({ theme }) => theme.colors.grayScale.gy400};
+  ${({ theme }) => theme.fonts.body.medium400};
+`;
+
+export const MenuLoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+  min-height: 100px;
+`;

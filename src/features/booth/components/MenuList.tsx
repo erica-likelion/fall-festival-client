@@ -2,24 +2,16 @@ import { Tabs } from '@/components/tabs';
 import { useState } from 'react';
 import * as S from './MenuList.styles';
 import { MenuFrame } from '@/components/image-text-frame';
-import { useBooth } from '@/hooks/useBooth';
-import { useNavigate } from 'react-router-dom';
-export default function MenuList({ id }: { id: number }) {
-  const [activeTab, setActiveTab] = useState<string>('');
-  const { booth, error } = useBooth(id);
-  const navigate = useNavigate();
+import { Booth } from '@/types/booth.types';
+import PageLoadingSpinner from '@/components/loading/PageLoadingSpinner';
 
-  if (error || !booth) {
-    navigate('/error', {
-      state: {
-        mainText: '서버가 힘들어하고 있어요.',
-        subText: '멋사가 금방 고쳐올테니, 잠시 후에 다시 와주세요!',
-        showBackButton: true,
-        showHomeButton: true,
-      },
-    });
-    return null;
-  }
+interface MenuListProps {
+  booth: Booth;
+  menuLoading: boolean;
+}
+
+export default function MenuList({ booth, menuLoading }: MenuListProps) {
+  const [activeTab, setActiveTab] = useState<string>('');
 
   // 데이터가 있는 카테고리만 표시
   const availableCategories = ['메인 메뉴', '사이드 메뉴'];
@@ -40,18 +32,26 @@ export default function MenuList({ id }: { id: number }) {
           toggle={true}
         />
       </S.TabsContainer>
+
       {(activeTab === '' || activeTab === '메인 메뉴') && (
         <S.MenuFrame>
           <S.MenuItem>메인 메뉴</S.MenuItem>
           <S.MenuList>
-            {booth.menu.main.map((menu) => (
-              <MenuFrame
-                menu={menu.name}
-                price={menu.price}
-                description={menu.describtion}
-                width="100%"
-              />
-            ))}
+            {menuLoading ? (
+              <S.MenuLoadingContainer>
+                <PageLoadingSpinner />
+              </S.MenuLoadingContainer>
+            ) : (
+              booth.menu.main.map((menu, index) => (
+                <MenuFrame
+                  key={`main-${index}-${menu.name}`}
+                  menu={menu.name}
+                  price={menu.price}
+                  description={menu.describtion}
+                  width="100%"
+                />
+              ))
+            )}
           </S.MenuList>
         </S.MenuFrame>
       )}
@@ -62,8 +62,9 @@ export default function MenuList({ id }: { id: number }) {
         <S.MenuFrame>
           <S.MenuItem>사이드 메뉴</S.MenuItem>
           <S.MenuList>
-            {booth.menu.side.map((menu) => (
+            {booth.menu.side.map((menu, index) => (
               <MenuFrame
+                key={`side-${index}-${menu.name}`}
                 menu={menu.name}
                 price={menu.price}
                 description={menu.describtion}
@@ -80,8 +81,9 @@ export default function MenuList({ id }: { id: number }) {
         <S.MenuFrame>
           <S.MenuItem>세트 메뉴</S.MenuItem>
           <S.MenuList>
-            {booth.menu.set.map((menu) => (
+            {booth.menu.set.map((menu, index) => (
               <MenuFrame
+                key={`set-${index}-${menu.name}`}
                 menu={menu.name}
                 price={menu.price}
                 description={menu.describtion}
@@ -98,8 +100,9 @@ export default function MenuList({ id }: { id: number }) {
         <S.MenuFrame>
           <S.MenuItem>기타</S.MenuItem>
           <S.MenuList>
-            {booth.menu.others.map((menu) => (
+            {booth.menu.others.map((menu, index) => (
               <MenuFrame
+                key={`others-${index}-${menu.name}`}
                 menu={menu.name}
                 price={menu.price}
                 description={menu.describtion}

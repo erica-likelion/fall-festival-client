@@ -1,29 +1,18 @@
 import * as S from './BoothInfo.styles';
 import { FavoriteButton } from '@/components/favorite-button';
 import { newlineToBr } from '@/utils/newlineToBr';
-import { useBooth } from '@/hooks/useBooth';
 import { useFavorites } from '@/hooks/useFavorites';
-import { useNavigate } from 'react-router-dom';
 import { OPERATING_HOURS } from '@/constants/booth/operating-hours';
 import PubBeerIcon from '@/assets/icons/pub_beer.svg?react';
 import TimeIcon from '@/assets/icons/time_pub.svg?react';
+import { Booth } from '@/types/booth.types';
 
-export default function BoothInfo({ id }: { id: number }) {
-  const { booth, error } = useBooth(id);
+interface BoothInfoProps {
+  booth: Booth;
+}
+
+export default function BoothInfo({ booth }: BoothInfoProps) {
   const { handleToggleFavorite, isFavorited } = useFavorites();
-  const navigate = useNavigate();
-
-  if (error || !booth) {
-    navigate('/error', {
-      state: {
-        mainText: '서버가 힘들어하고 있어요.',
-        subText: '멋사가 금방 고쳐올테니, 잠시 후에 다시 와주세요!',
-        showBackButton: true,
-        showHomeButton: true,
-      },
-    });
-    return null;
-  }
 
   const isBoothFavorited = isFavorited(booth.id);
 

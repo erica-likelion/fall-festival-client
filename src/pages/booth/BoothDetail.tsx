@@ -4,6 +4,7 @@ import { NavBar } from '@/components/nav-bar';
 import * as S from './BoothDetail.styles';
 import { BoothInfo, BoothLocation, MenuList } from '@/features/booth';
 import { useBooth } from '@/hooks/useBooth';
+import PageLoadingSpinner from '@/components/loading/PageLoadingSpinner';
 
 export default function BoothDetail() {
   const navigate = useNavigate();
@@ -26,11 +27,15 @@ export default function BoothDetail() {
       navigate('/booth');
     }
   };
-  const { booth, error } = useBooth(Number(id) || 0);
+  const { booth, loading, menuLoading, error } = useBooth(Number(id) || 0);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  if (loading) {
+    return <PageLoadingSpinner />;
+  }
 
   if (error || !booth) {
     navigate('/error', {
@@ -49,11 +54,11 @@ export default function BoothDetail() {
       <NavBar isBack hideRight title="주점 정보" onBackClick={handleBackClick} />
       <S.BackgroundImg src={booth.posterImage} />
       <S.Section style={{ marginTop: '-2rem' }}>
-        <BoothInfo id={booth.id} />
+        <BoothInfo booth={booth} />
       </S.Section>
       <S.HorizontalLine />
       <S.BorderSection>
-        <MenuList id={booth.id} />
+        <MenuList booth={booth} menuLoading={menuLoading} />
       </S.BorderSection>
       <S.HorizontalLine />
       <S.BorderSection data-section="location">

@@ -51,6 +51,8 @@ const transformPubToBootn = async (pub: PubApiResponse): Promise<Booth> => {
   return {
     id: pub.id,
     locate: pub.location,
+    latitude: pub.latitude,
+    longitude: pub.longitude,
     affiliation: pub.affiliation,
     pubName: pub.name,
     takeout: pub.takeout,
@@ -60,15 +62,55 @@ const transformPubToBootn = async (pub: PubApiResponse): Promise<Booth> => {
   } as Booth;
 };
 
+// 메뉴 없이 기본 정보만 변환
+const transformPubToBoothBasic = (pub: PubApiResponse): Booth => {
+  return {
+    id: pub.id,
+    locate: pub.location,
+    latitude: pub.latitude,
+    longitude: pub.longitude,
+    affiliation: pub.affiliation,
+    pubName: pub.name,
+    takeout: pub.takeout,
+    profileImage: pub.profileImage,
+    posterImage: pub.posterImage,
+    menu: { main: [], side: [], set: [], others: [] },
+  };
+};
+
 export const boothService = {
   async getAllBooths(): Promise<Booth[]> {
     const response = await axiosInstance.get<PubListResponse>('/api/pubs');
-    const booths = await Promise.all(response.data.data.map(transformPubToBootn));
+    const booths = response.data.data.map(transformPubToBoothBasic);
     return booths;
   },
 
   async getBoothById(id: number): Promise<Booth> {
     const response = await axiosInstance.get<PubDetailResponse>(`/api/pubs/${id}`);
     return await transformPubToBootn(response.data.data);
+  },
+
+  // 기본 정보만 가져오기 (메뉴 제외)
+  async getBoothBasicInfo(id: number): Promise<Omit<Booth, 'menu'>> {
+    const response = await axiosInstance.get<PubDetailResponse>(`/api/pubs/${id}`);
+    const pub = response.data.data;
+
+    return {
+      id: pub.id,
+      locate: pub.location,
+      latitude: pub.latitude,
+      longitude: pub.longitude,
+      affiliation: pub.affiliation,
+      pubName: pub.name,
+      takeout: pub.takeout,
+      profileImage: pub.profileImage,
+      posterImage: pub.posterImage,
+    };
+  },
+
+  // 메뉴만 가져오기
+  async getBoothMenus(id: number) {
+    const response = await axiosInstance.get<MenuListResponse>(`/api/pubs/${id}/menus`);
+    return transformMenusToBoothMenu(response.data.data);
   },
 };
