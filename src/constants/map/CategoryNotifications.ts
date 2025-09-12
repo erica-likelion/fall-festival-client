@@ -18,6 +18,6 @@ export interface CategoryNotification {
 export const CATEGORY_NOTIFICATIONS: Record<string, CategoryNotification> = {
   주점: {
     title: '[공지] 주류 구매 가이드',
-    path: '/main/notice/15',
+    path: '/main/notice/18',
   },
 };

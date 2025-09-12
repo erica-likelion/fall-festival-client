@@ -118,7 +118,7 @@ export default function Performance() {
         <S.InfoWrap>
           <Notification
             title="[공지] 공연관람 유의사항"
-            onClick={() => navigate('/main/notice/25')}
+            onClick={() => navigate('/main/notice/14')}
           />
         </S.InfoWrap>
 
