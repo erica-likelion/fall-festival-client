@@ -30,6 +30,9 @@ export default function Layout() {
     const themeColor = isVioletThemePage ? '#7E419A' : '#fafafa';
 
     themeColorMeta.setAttribute('content', themeColor);
+
+    // body 배경색도 함께 변경
+    document.body.style.backgroundColor = themeColor;
   }, [location.pathname]);
 
   return (
