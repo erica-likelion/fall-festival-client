@@ -115,7 +115,7 @@ export function MapItemCard({ item, onItemClick, category }: MapItemCardProps) {
       <S.MapItemCardContainer
         onClick={() => {
           // 플리마켓 클릭 시 공지사항으로 이동
-          navigate('/main/notice/10');
+          navigate('/main/notice/9');
         }}
       >
         <S.ItemImage src={item.image} alt={item.title} />
