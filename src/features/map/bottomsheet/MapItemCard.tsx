@@ -73,65 +73,18 @@ export function MapItemCard({ item, onItemClick, category }: MapItemCardProps) {
     );
   }
 
-  // 푸드트럭 카테고리인 경우 특별 처리
-  if (category === '푸드트럭') {
-    return (
-      <S.MapItemCardContainer
-        onClick={() => {
-          // 푸드트럭 클릭 시 공지사항으로 이동
-          navigate('/main/notice/21');
-        }}
-      >
-        <S.ItemImage src={item.image} alt={item.title} />
-        <S.ItemContent>
-          <S.ItemTitle>{item.title}</S.ItemTitle>
-          <S.ItemCategory>{category}</S.ItemCategory>
-        </S.ItemContent>
-      </S.MapItemCardContainer>
-    );
-  }
-
-  // 주류 구매 카테고리인 경우 특별 처리
-  if (category === '주류 구매') {
-    return (
-      <S.MapItemCardContainer
-        onClick={() => {
-          // 주류 구매 클릭 시 공지사항으로 이동
-          navigate('/main/notice/18');
-        }}
-      >
-        <S.ItemImage src={item.image} alt={item.title} />
-        <S.ItemContent>
-          <S.ItemTitle>{item.title}</S.ItemTitle>
-          <S.ItemCategory>{category}</S.ItemCategory>
-        </S.ItemContent>
-      </S.MapItemCardContainer>
-    );
-  }
-
-  // 플리마켓 카테고리인 경우 특별 처리
-  if (category === '플리마켓') {
-    return (
-      <S.MapItemCardContainer
-        onClick={() => {
-          // 플리마켓 클릭 시 공지사항으로 이동
-          navigate('/main/notice/9');
-        }}
-      >
-        <S.ItemImage src={item.image} alt={item.title} />
-        <S.ItemContent>
-          <S.ItemTitle>{item.title}</S.ItemTitle>
-          <S.ItemCategory>{category}</S.ItemCategory>
-        </S.ItemContent>
-      </S.MapItemCardContainer>
-    );
-  }
-
-  // 주점이 아닌 경우 기본 디자인 사용
+  // 주점이 아닌 경우 path 또는 linkType에 따라 동적으로 처리
   return (
     <S.MapItemCardContainer
       onClick={() => {
-        if (onItemClick && item.lat && item.lng) {
+        // path 필드가 있으면 해당 경로로 이동
+        if (item.path) {
+          navigate(item.path);
+        }
+        // path가 없을 때 linkType과 linkId를 기반으로 동적 라우팅 (fallback)
+        else if (item.linkType === 'NOTICE_DETAIL' && item.linkId) {
+          navigate(`/main/notice/${item.linkId}`);
+        } else if (onItemClick && item.lat && item.lng) {
           onItemClick(item);
         }
       }}

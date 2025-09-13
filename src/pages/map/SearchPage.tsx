@@ -144,7 +144,11 @@ export default function MapSearch() {
             path:
               marker.linkType === 'STATIC'
                 ? undefined
-                : `/${marker.linkType.toLowerCase()}/${marker.linkId}`,
+                : marker.linkType === 'NOTICE_DETAIL'
+                  ? `/main/notice/${marker.linkId}`
+                  : marker.linkType === 'PUB_DETAIL'
+                    ? `/booth/${marker.linkId}`
+                    : `/${marker.linkType.toLowerCase()}/${marker.linkId}`,
           });
         }
       });

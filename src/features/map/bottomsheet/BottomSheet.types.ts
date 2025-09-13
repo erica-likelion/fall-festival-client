@@ -11,6 +11,8 @@ export interface MapDataItem extends ImageTextFrameWithTimeProps {
   lng?: number; // 경도
   closeDay?: DAYS[];
   canPickup?: boolean; // 포장가능 여부
+  linkType?: string; // 링크 타입 (NOTICE_DETAIL, PUB_DETAIL, STATIC 등)
+  linkId?: number; // 링크 ID
 }
 
 /**

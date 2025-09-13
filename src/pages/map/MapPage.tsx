@@ -113,7 +113,13 @@ export default function Map() {
         lng: item.longitude,
         closeDay: item.closedDays as ('1일차' | '2일차' | '3일차')[],
         path:
-          item.linkType === 'STATIC' ? undefined : `/${item.linkType.toLowerCase()}/${item.linkId}`,
+          item.linkType === 'STATIC'
+            ? undefined
+            : item.linkType === 'NOTICE_DETAIL'
+              ? `/main/notice/${item.linkId}`
+              : item.linkType === 'PUB_DETAIL'
+                ? `/booth/${item.linkId}`
+                : `/${item.linkType.toLowerCase()}/${item.linkId}`,
       }));
   }, [selectedDay, apiCategoryMapping, markers]);
 
