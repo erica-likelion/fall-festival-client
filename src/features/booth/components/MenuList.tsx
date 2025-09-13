@@ -14,7 +14,10 @@ export default function MenuList({ booth, menuLoading }: MenuListProps) {
   const [activeTab, setActiveTab] = useState<string>('');
 
   // 데이터가 있는 카테고리만 표시
-  const availableCategories = ['메인 메뉴', '사이드 메뉴'];
+  const availableCategories = ['메인 메뉴'];
+  if (booth.menu.side.length > 0) {
+    availableCategories.push('사이드 메뉴');
+  }
   if (booth.menu.set.length > 0) {
     availableCategories.push('세트 메뉴');
   }
