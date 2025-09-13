@@ -61,7 +61,7 @@ export default function MenuList({ booth, menuLoading }: MenuListProps) {
 
       {activeTab === '' && booth.menu.side.length > 0 && <S.HorizontalLine />}
 
-      {(activeTab === '' || activeTab === '사이드 메뉴') && (
+      {(activeTab === '' || activeTab === '사이드 메뉴') && booth.menu.side.length > 0 && (
         <S.MenuFrame>
           <S.MenuItem>사이드 메뉴</S.MenuItem>
           <S.MenuList>

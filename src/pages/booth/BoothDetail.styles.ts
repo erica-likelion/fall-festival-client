@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const BackgroundImg = styled.img`
   width: 100%;
   height: 5.75rem;
-  background-color: ${(props) => props.theme.colors.grayScale.gy800};
   object-fit: cover;
   object-position: center;
 `;
