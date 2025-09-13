@@ -52,7 +52,9 @@ const ErrorPage = ({
         </S.ErrorIconWrapper>
         <S.ErrorMainText>{mainText}</S.ErrorMainText>
         {subText ? <S.ErrorSubText>{subText}</S.ErrorSubText> : <br />}
-        {showHomeButton && <AccentButton onClick={() => navigate('/')} label="홈으로 가기" />}
+        {showHomeButton && (
+          <AccentButton onClick={() => (window.location.href = '/')} label="홈으로 가기" />
+        )}
       </S.ErrorContent>
     </S.ErrorPageContainer>
   );
