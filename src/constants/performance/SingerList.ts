@@ -9,7 +9,7 @@ export const singers = {
   ],
   '3일차': [
     { start: '17:00', end: '18:50', name: '학생 공연' },
-    { start: '18:50', end: '19:20', name: '하츠투하트' },
+    { start: '18:50', end: '19:20', name: '하츠투하츠' },
     { start: '19:20', end: '19:50', name: '지지원' },
     { start: '19:50', end: '20:30', name: '크라잉넛' },
   ],
