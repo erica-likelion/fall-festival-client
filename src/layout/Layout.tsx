@@ -31,8 +31,14 @@ export default function Layout() {
 
     themeColorMeta.setAttribute('content', themeColor);
 
-    // body 배경색도 함께 변경
-    document.body.style.backgroundColor = themeColor;
+    // body에 클래스 추가/제거로 배경색 변경
+    if (isVioletThemePage) {
+      document.body.classList.add('violet-theme');
+      document.body.classList.remove('default-theme');
+    } else {
+      document.body.classList.add('default-theme');
+      document.body.classList.remove('violet-theme');
+    }
   }, [location.pathname]);
 
   return (

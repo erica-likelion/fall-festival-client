@@ -3,9 +3,11 @@ import { motion } from 'framer-motion';
 import logo from '@/assets/images/espero-logo.webp';
 
 export const Layout = styled.div`
-  background: linear-gradient(180deg, #7e419a 10%, transparent 100%);
+  background: linear-gradient(180deg, #7e419a 5.4rem, #fafafa 50rem);
+
+  /* background-color: ${(props) => props.theme.colors.grayScale.white}; */
   width: 100%;
-  height: 50rem;
+  height: 100%;
   position: absolute;
 `;
 
@@ -33,7 +35,8 @@ export const Container = styled.div`
   width: 100%;
   height: auto;
   position: relative;
-  margin-bottom: 8rem;
+  padding-bottom: 8rem;
+  background-color: ${(props) => props.theme.colors.primary.violet};
 `;
 
 export const Main = styled.main`

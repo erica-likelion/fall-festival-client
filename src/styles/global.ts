@@ -34,7 +34,8 @@ export const GlobalStyle = createGlobalStyle`
         width: 100%;
         height: 100vh;
         overflow: hidden;
-        background-color: ${(props) => props.theme.colors.grayScale.white};
+
+        /* background-color: ${(props) => props.theme.colors.grayScale.white}; */
         font-family: Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     }
     
@@ -45,7 +46,8 @@ export const GlobalStyle = createGlobalStyle`
     #root {
         width: 100vw;
         height: 100%;
-        background-color: ${(props) => props.theme.colors.grayScale.white};
+
+        /* background-color: ${(props) => props.theme.colors.grayScale.white}; */
         position: fixed;
     }
 
