@@ -96,7 +96,6 @@ function AppInstallPromptModal({
       >
         <S.ModalTab>
           <S.ModalTitle>
-            {<S.Help fill="#000000bd" width={18} height={18} />}
             <S.ModalTitleText>홈 화면 추가하기</S.ModalTitleText>
           </S.ModalTitle>
           <S.ModalCloseBtn onClick={handleCancelClick} fill="#17171B" width={18} height={18} />
