@@ -76,9 +76,13 @@ export default function Notice() {
     [navigate],
   );
 
+  const handleBackClick = () => {
+    navigate('/main');
+  };
+
   return (
     <>
-      <NavBar title="공지사항" isBack={true} />
+      <NavBar title="공지사항" isBack={true} onBackClick={handleBackClick} />
       <S.Container>
         {loading ? (
           <S.LoadingWrapper>공지사항을 불러오는 중...</S.LoadingWrapper>
