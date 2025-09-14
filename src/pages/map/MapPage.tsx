@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useMemo, useCallback } from 'react';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { useNavigate, useParams, useLocation, useSearchParams } from 'react-router-dom';
 import { MapPageBottomSheet } from '@/features/map';
 import { NavBar } from '@/components/nav-bar';
 import { Tabs } from '@/components/tabs';
@@ -23,6 +23,7 @@ export default function Map() {
   const itemId = itemIdParam ? Number(itemIdParam) : undefined;
   const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
   const mapRef = useRef<HTMLDivElement>(null);
 
   // 현재 날짜에 기반한 페스티벌 일차 계산 (한국 시간 기준)
@@ -32,6 +33,8 @@ export default function Map() {
   const [selectedDay, setSelectedDay] = useState<DAYS>(currentDay);
   const [selectedCategory, setSelectedCategory] = useState<CATEGORIES | null>(null);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
+
+  const categoryFromUrl = searchParams.get('category');
 
   // 지도 카테고리 상태
   const [selectedMapCategory, setSelectedMapCategory] = useState<string>('');
@@ -378,6 +381,17 @@ export default function Map() {
     }
   }, [fetchMarkers, isInitialized]);
 
+  useEffect(() => {
+    if (categoryFromUrl && !selectedMapCategory && !isApiLoading) {
+      const mappedCategory = categoryMapping[categoryFromUrl];
+      if (mappedCategory) {
+        setSelectedMapCategory(categoryFromUrl);
+        setSelectedCategory(mappedCategory);
+        setIsBottomSheetOpen(true);
+      }
+    }
+  }, [categoryFromUrl, selectedMapCategory, isApiLoading, categoryMapping]);
+
   // 에러 발생 시 에러 페이지로 이동
   useEffect(() => {
     if (markerError) {
@@ -440,6 +454,8 @@ export default function Map() {
     if (newCategory) {
       const mappedCategory = categoryMapping[newCategory];
       setSelectedCategory(mappedCategory);
+
+      setSearchParams({ category: newCategory });
     } else {
       setSelectedCategory(null);
       setSelectedItemId(null);
@@ -447,6 +463,8 @@ export default function Map() {
       setSingleItemMode(false);
       setSingleItem(null);
       setSingleItemSearchKeyword('');
+
+      setSearchParams({});
     }
   };
 

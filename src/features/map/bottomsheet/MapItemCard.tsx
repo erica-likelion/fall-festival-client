@@ -44,7 +44,7 @@ export function MapItemCard({ item, onItemClick, category }: MapItemCardProps) {
             // 주점 카테고리인 경우 상세페이지로 이동
             if (category === '주점' && item.id) {
               navigate(`/booth/${item.id}`, {
-                state: { from: '/map', fromType: 'map' },
+                state: { from: '/map', fromType: 'map', category: category },
               });
             } else if (onItemClick && item.lat && item.lng) {
               onItemClick(item);
@@ -79,11 +79,15 @@ export function MapItemCard({ item, onItemClick, category }: MapItemCardProps) {
       onClick={() => {
         // path 필드가 있으면 해당 경로로 이동
         if (item.path) {
-          navigate(item.path);
+          navigate(item.path, {
+            state: { from: '/map', fromType: 'map', category: category },
+          });
         }
         // path가 없을 때 linkType과 linkId를 기반으로 동적 라우팅 (fallback)
         else if (item.linkType === 'NOTICE_DETAIL' && item.linkId) {
-          navigate(`/main/notice/${item.linkId}`);
+          navigate(`/main/notice/${item.linkId}`, {
+            state: { from: '/map', fromType: 'map', category: category },
+          });
         } else if (onItemClick && item.lat && item.lng) {
           onItemClick(item);
         }

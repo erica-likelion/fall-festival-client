@@ -13,10 +13,15 @@ export default function BoothDetail() {
   const handleBackClick = () => {
     const from = location.state?.from;
     const fromType = location.state?.fromType;
+    const category = location.state?.category;
 
-    // 지도에서 온 경우 지도로 돌아가기
+    // 지도에서 온 경우 지도로 돌아가기 (카테고리 정보 포함)
     if (from === '/map' || fromType === 'map') {
-      navigate('/map');
+      if (category) {
+        navigate(`/map?category=${encodeURIComponent(category)}`);
+      } else {
+        navigate('/map');
+      }
     }
     // 검색에서 온 경우 검색으로 돌아가기
     else if (from === '/booth/search') {

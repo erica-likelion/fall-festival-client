@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { NavBar } from '@/components/nav-bar';
 import * as S from './NoticeDetail.styles';
 import { useEffect, useState } from 'react';
@@ -27,6 +27,7 @@ export default function NoticeDetail() {
 
   const setIsNav = useLayoutStore((state) => state.setIsNav);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     setIsNav(false);
@@ -97,10 +98,26 @@ export default function NoticeDetail() {
     });
   }
 
+  const handleBackClick = () => {
+    const from = location.state?.from;
+    const fromType = location.state?.fromType;
+    const category = location.state?.category;
+
+    if (from === '/map' || fromType === 'map') {
+      if (category) {
+        navigate(`/map?category=${encodeURIComponent(category)}`);
+      } else {
+        navigate('/map');
+      }
+    } else {
+      navigate('/main/notice');
+    }
+  };
+
   if (!notice) return null;
   return (
     <>
-      <NavBar title="공지사항" isBack={true} />
+      <NavBar title="공지사항" isBack={true} onBackClick={handleBackClick} />
       <S.Container>
         <NoticeDetailCarousels img={notice.img} />
         <NoticeBody title={notice.title} tags={notice.tags} body={notice.body} />
