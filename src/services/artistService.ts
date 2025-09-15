@@ -21,29 +21,24 @@ export const artistService = {
 
   // 공연 정보와 아티스트 정보를 합쳐서 가져오기
   async getPerformancesWithArtists(): Promise<PerformanceWithArtist[]> {
-    try {
-      const [performancesResponse, artistsMap] = await Promise.all([
-        this.getPerformances(),
-        this.getAllArtistsMap(),
-      ]);
+    const [performancesResponse, artistsMap] = await Promise.all([
+      this.getPerformances(),
+      this.getAllArtistsMap(),
+    ]);
 
-      const performancesWithArtists: PerformanceWithArtist[] = [];
+    const performancesWithArtists: PerformanceWithArtist[] = [];
 
-      for (const performance of performancesResponse.data) {
-        const artist = artistsMap.get(performance.artistId);
-        if (artist) {
-          performancesWithArtists.push({
-            ...performance,
-            artist,
-          });
-        }
+    for (const performance of performancesResponse.data) {
+      const artist = artistsMap.get(performance.artistId);
+      if (artist) {
+        performancesWithArtists.push({
+          ...performance,
+          artist,
+        });
       }
-
-      return performancesWithArtists;
-    } catch (error) {
-      console.error('공연 정보와 아티스트 정보를 가져오는데 실패했습니다:', error);
-      throw error;
     }
+
+    return performancesWithArtists;
   },
 
   // 모든 아티스트 정보를 Map으로 가져오기 (성능 최적화)

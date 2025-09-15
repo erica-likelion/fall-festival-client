@@ -36,6 +36,31 @@ export default function Map() {
 
   const categoryFromUrl = searchParams.get('category');
 
+  // Tabs 배열을 메모이제이션
+  const tabsArray = useMemo(
+    () => [
+      '프로모션',
+      '주점',
+      '푸드트럭',
+      '콘텐츠',
+      '화장실',
+      'AED',
+      '온열질환 대비소',
+      '셔틀콕',
+      '공연장',
+      '흡연실',
+      '주류 구매',
+      '플리마켓',
+    ],
+    [],
+  );
+
+  // BottomSheet key를 메모이제이션
+  const bottomSheetKey = useMemo(
+    () => `bottomsheet-${selectedCategory}-${selectedDay}`,
+    [selectedCategory, selectedDay],
+  );
+
   // 지도 카테고리 상태
   const [selectedMapCategory, setSelectedMapCategory] = useState<string>('');
   const [isFromSearchPage, setIsFromSearchPage] = useState<boolean>(false);
@@ -285,13 +310,9 @@ export default function Map() {
     navigate, // navigate 의존성 추가
   ]);
 
-  // 바텀시트 열기/닫기
+  // 바텀시트 열기/닫기 (selectedCategory와 동기화)
   useEffect(() => {
-    if (selectedCategory) {
-      setIsBottomSheetOpen(true);
-    } else {
-      setIsBottomSheetOpen(false);
-    }
+    setIsBottomSheetOpen(!!selectedCategory);
   }, [selectedCategory]);
 
   // SearchPage에서 전달받은 카테고리 선택 상태 처리
@@ -390,7 +411,13 @@ export default function Map() {
         setIsBottomSheetOpen(true);
       }
     }
-  }, [categoryFromUrl, selectedMapCategory, isApiLoading, categoryMapping]);
+    // URL에 카테고리가 없으면 상태 초기화 (한 번만 실행되도록 조건 추가)
+    else if (!categoryFromUrl && selectedMapCategory && !isApiLoading) {
+      setSelectedMapCategory('');
+      setSelectedCategory(null);
+      setIsBottomSheetOpen(false);
+    }
+  }, [categoryFromUrl, isApiLoading, categoryMapping]); // selectedMapCategory 의존성 제거
 
   // 에러 발생 시 에러 페이지로 이동
   useEffect(() => {
@@ -406,77 +433,82 @@ export default function Map() {
     }
   }, [markerError, navigate]);
 
-  const handleSearchClick = () => {
+  const handleSearchClick = useCallback(() => {
     navigate('/map/search');
-  };
+  }, [navigate]);
 
-  const handleDayChange = (day: string) => {
+  const handleDayChange = useCallback((day: string) => {
     if (day === 'open-modal') {
       setIsDayModalOpen(true);
     } else {
       // 선택된 날짜를 상태로 업데이트
       setSelectedDay(day as DAYS);
     }
-  };
+  }, []);
 
-  const handleDayModalClose = () => {
+  const handleDayModalClose = useCallback(() => {
     setIsDayModalOpen(false);
-  };
+  }, []);
 
-  const handleMapCategoryChange = (category: string) => {
-    // **🔥 탭 카테고리 클릭 시 단일 항목 검색 상태 완전 초기화**
-    // 새로운 카테고리를 선택하는 경우 (카테고리 해제가 아닌 경우)
-    if (category !== selectedMapCategory && category !== '') {
-      setSelectedItemId(null);
-      setIsFromSearchPage(false);
+  const handleMapCategoryChange = useCallback(
+    (category: string) => {
+      // **🔥 탭 카테고리 클릭 시 단일 항목 검색 상태 완전 초기화**
+      // 새로운 카테고리를 선택하는 경우 (카테고리 해제가 아닌 경우)
+      if (category !== selectedMapCategory && category !== '') {
+        setSelectedItemId(null);
+        setIsFromSearchPage(false);
 
-      // 🔥 단일 아이템 모드 해제
-      setSingleItemMode(false);
-      setSingleItem(null);
-      setSingleItemSearchKeyword('');
+        // 🔥 단일 아이템 모드 해제
+        setSingleItemMode(false);
+        setSingleItem(null);
+        setSingleItemSearchKeyword('');
 
-      // URL에 itemId가 있다면 제거
-      if (itemId) {
-        navigate('/map', { replace: true });
+        // URL에 itemId가 있다면 제거
+        if (itemId) {
+          navigate('/map', { replace: true });
+        }
       }
-    }
 
-    // 같은 카테고리를 클릭하면 선택 해제, 다른 카테고리를 클릭하면 선택
-    const newCategory = category === selectedMapCategory ? '' : category;
-    setSelectedMapCategory(newCategory);
+      // 같은 카테고리를 클릭하면 선택 해제, 다른 카테고리를 클릭하면 선택
+      const newCategory = category === selectedMapCategory ? '' : category;
+      setSelectedMapCategory(newCategory);
 
-    // **검색 상태 관리 로직 간소화**
-    if (newCategory) {
-      setIsFromSearchPage(false);
-    }
+      // **검색 상태 관리 로직 간소화**
+      if (newCategory) {
+        setIsFromSearchPage(false);
+      }
 
-    // 바텀시트를 위한 카테고리 설정
-    if (newCategory) {
-      const mappedCategory = categoryMapping[newCategory];
-      setSelectedCategory(mappedCategory);
+      // 바텀시트를 위한 카테고리 설정
+      if (newCategory) {
+        const mappedCategory = categoryMapping[newCategory];
+        setSelectedCategory(mappedCategory);
 
-      setSearchParams({ category: newCategory });
-    } else {
-      setSelectedCategory(null);
-      setSelectedItemId(null);
-      // 🔥 단일 아이템 모드도 해제
-      setSingleItemMode(false);
-      setSingleItem(null);
-      setSingleItemSearchKeyword('');
+        // URL 쿼리 파라미터에 카테고리 상태 저장
+        setSearchParams({ category: newCategory });
+      } else {
+        setSelectedCategory(null);
+        setSelectedItemId(null);
+        // 🔥 단일 아이템 모드도 해제
+        setSingleItemMode(false);
+        setSingleItem(null);
+        setSingleItemSearchKeyword('');
 
-      setSearchParams({});
-    }
-  };
+        // URL 쿼리 파라미터에서 카테고리 제거
+        setSearchParams({});
+      }
+    },
+    [selectedMapCategory, categoryMapping, itemId, navigate, setSearchParams],
+  );
 
   // 현재 위치로 이동 핸들러
-  const handleReCenterClick = () => {
+  const handleReCenterClick = useCallback(() => {
     moveToCurrentLocation(); // 현재 위치로 이동
-  };
+  }, [moveToCurrentLocation]);
 
   // 홈으로 이동 핸들러
-  const handleHomeClick = () => {
+  const handleHomeClick = useCallback(() => {
     navigate('/');
-  };
+  }, [navigate]);
 
   return (
     <S.MapContainer>
@@ -561,20 +593,7 @@ export default function Map() {
         )}
         <S.CategoryTabsContainer $isFromSearch={!!(isFromSearchPage && selectedMapCategory)}>
           <Tabs
-            tabs={[
-              '프로모션',
-              '주점',
-              '푸드트럭',
-              '콘텐츠',
-              '화장실',
-              'AED',
-              '온열질환 대비소',
-              '셔틀콕',
-              '공연장',
-              '흡연실',
-              '주류 구매',
-              '플리마켓',
-            ]}
+            tabs={tabsArray}
             activeTab={selectedMapCategory}
             onTabClick={handleMapCategoryChange}
             autoWidth={true}
@@ -582,10 +601,10 @@ export default function Map() {
             gap="0.25rem"
           />
         </S.CategoryTabsContainer>
-        {(isBottomSheetOpen || selectedMapCategory) && (
+        {selectedCategory && (
           <S.BottomSheetContainer>
             <MapPageBottomSheet
-              key={`bottomsheet-${selectedCategory}-${selectedDay}`}
+              key={bottomSheetKey}
               selectedCategory={selectedCategory}
               selectedDay={selectedDay}
               onItemClick={showItemMarker}

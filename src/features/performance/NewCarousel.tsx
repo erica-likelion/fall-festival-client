@@ -135,7 +135,6 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
                               }
 
                               if (!onArtistClick) {
-                                console.error('❌ [ERROR] onArtistClick callback is not provided!');
                                 return;
                               }
 
@@ -158,7 +157,6 @@ export default function NewCarousel({ data, onIndexChange, onArtistClick }: NewC
                               }
 
                               if (!onArtistClick) {
-                                console.error('❌ [ERROR] onArtistClick callback is not provided!');
                                 return;
                               }
 

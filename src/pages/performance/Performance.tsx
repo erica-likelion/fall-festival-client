@@ -78,17 +78,13 @@ export default function Performance() {
     // sessionStorage에 selectedDay 저장 (뒤로가기용)
     sessionStorage.setItem('performanceSelectedDay', selectedDay);
 
-    try {
-      navigate('/performance/detail', {
-        state: {
-          ...artistData,
-          day: selectedDay, // API에서 받은 실제 일차 정보 전달
-          selectedDay,
-        },
-      });
-    } catch (error) {
-      console.error('❌ [ERROR] Navigation failed:', error);
-    }
+    navigate('/performance/detail', {
+      state: {
+        ...artistData,
+        day: selectedDay, // API에서 받은 실제 일차 정보 전달
+        selectedDay,
+      },
+    });
   };
 
   const getProgressBarProps = () => {

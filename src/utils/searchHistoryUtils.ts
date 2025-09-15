@@ -13,8 +13,7 @@ export const loadSearchHistory = (storageKey: string): SearchHistoryItem[] => {
   try {
     const savedHistory = localStorage.getItem(storageKey);
     return savedHistory ? JSON.parse(savedHistory) : [];
-  } catch (e) {
-    console.error('검색 기록을 불러오는 중 오류가 발생했습니다', e);
+  } catch {
     localStorage.removeItem(storageKey);
     return [];
   }

@@ -15,7 +15,7 @@ export default function BoothDetail() {
     const fromType = location.state?.fromType;
     const category = location.state?.category;
 
-    // 지도에서 온 경우 지도로 돌아가기 (카테고리 정보 포함)
+    // 지도에서 온 경우 지도로 돌아가기
     if (from === '/map' || fromType === 'map') {
       if (category) {
         navigate(`/map?category=${encodeURIComponent(category)}`);

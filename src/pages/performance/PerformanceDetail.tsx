@@ -37,7 +37,6 @@ export default function PerformanceDetail() {
   }, [setIsNav]);
 
   if (!state) {
-    console.error('❌ [ERROR] No state provided to PerformanceDetail!');
     return (
       <div>
         <h1>Error: No performance data provided</h1>

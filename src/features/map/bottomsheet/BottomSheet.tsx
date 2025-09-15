@@ -73,7 +73,6 @@ export default function BottomSheet({
 
   // selectedCategory와 customMapData가 둘 다 있을 때만 렌더링
   if (!selectedCategory) {
-    console.log('[BottomSheet] selectedCategory가 없으므로 바텀시트를 렌더링하지 않습니다.');
     return null;
   }
 
@@ -96,22 +95,6 @@ export default function BottomSheet({
         return isNotClosed;
       }) || []
     : [];
-
-  console.log('[BottomSheet] 필터링된 데이터:', {
-    selectedCategory,
-    selectedDay,
-    totalItems: selectedCategory ? dataSource[selectedCategory]?.length || 0 : 0,
-    filteredItems: filteredData.length,
-    data: filteredData,
-    usingCustomData: !!customMapData,
-  });
-
-  console.log(
-    '[BottomSheet] 바텀시트 렌더링 - selectedCategory:',
-    selectedCategory,
-    'selectedDay:',
-    selectedDay,
-  );
 
   // 카테고리별 알림 데이터 가져오기
   const notification = CATEGORY_NOTIFICATIONS[selectedCategory];

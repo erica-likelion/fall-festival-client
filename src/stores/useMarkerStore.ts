@@ -41,12 +41,10 @@ export const useMarkerStore = create<MarkerState & MarkerActions>((set, get) => 
           error: null,
           isInitialized: true,
         });
-        console.log('🗺️ [MarkerStore] 마커 데이터 로드 완료:', response.data);
       } else {
         throw new Error(response.message || '마커 데이터를 가져오는데 실패했습니다.');
       }
-    } catch (err) {
-      console.error('❌ [MarkerStore] 마커 데이터 요청 실패:', err);
+    } catch {
       set({
         loading: false,
         error: '마커 정보를 불러오는데 실패했습니다.',
