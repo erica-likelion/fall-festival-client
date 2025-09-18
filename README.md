@@ -1,27 +1,18 @@
 # fall-festival-client
+## 한양대학교 가을 축제 ESPERO 웹앱 프론트엔드 리포지토리
+<img width="558" height="690" alt="image" src="https://github.com/user-attachments/assets/29442c87-5a27-4d80-a9ac-67e31a0477c1" />
 
 
-## Getting started
-
-1. install package dependencies
-
+## 빌드 및 실행
 ```
-  yarn install
-```
-
-2. Start the dev server.
-
-```
-  yarn run dev
+  yarn install   // install package dependencies
+  yarn run dev   // Start the dev server
+  yarn build     // Build your product
 ```
 
-3. Build your product.
-
-```
-  yarn build
-```
-## Testing
-(배포 예정)
+## 배포 주소
+### [espero.app](https://espero.app)
+### [fall-festival-client.vercel.app](https://fall-festival-client.vercel.app/)
 
 ## Dependencies
 
